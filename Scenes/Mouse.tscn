@@ -1,0 +1,44 @@
+[gd_scene load_steps=8 format=3 uid="uid://8ygp1hirrrfk"]
+
+[ext_resource type="Script" path="res://Scenes/mouse.gd" id="1_klowd"]
+[ext_resource type="Texture2D" uid="uid://cc5m6xivs4cvi" path="res://Arts/cat_toy_002_mouse1.png" id="2_uvrw3"]
+[ext_resource type="Texture2D" uid="uid://dibnh6gpgwu64" path="res://Arts/cat_toy_002_mouse2.png" id="3_2ny7t"]
+[ext_resource type="Texture2D" uid="uid://dmvjhj446hg3v" path="res://Arts/cat_toy_002_mouse3.png" id="4_ppcwb"]
+[ext_resource type="Texture2D" uid="uid://pk54fikqg3vt" path="res://Arts/cat_toy_002_mouse4.png" id="5_36cwb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oqaj1"]
+size = Vector2(60, 34)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_48kiw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_uvrw3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_2ny7t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_ppcwb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_36cwb")
+}],
+"loop": true,
+"name": &"tail",
+"speed": 5.0
+}]
+
+[node name="Mouse" type="Area2D"]
+position = Vector2(431, 293)
+script = ExtResource("1_klowd")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_oqaj1")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_48kiw")
+animation = &"tail"
+frame_progress = 0.278804

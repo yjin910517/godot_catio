@@ -1,0 +1,44 @@
+[gd_scene load_steps=8 format=3 uid="uid://cuwtiwli8daad"]
+
+[ext_resource type="Script" path="res://Scenes/fish.gd" id="1_cjfyf"]
+[ext_resource type="Texture2D" uid="uid://bqg6pobxmtv5c" path="res://Arts/cat_toy_001_fish1.png" id="1_dc7ru"]
+[ext_resource type="Texture2D" uid="uid://cpxdsofrn2t73" path="res://Arts/cat_toy_001_fish2.png" id="2_bnv3p"]
+[ext_resource type="Texture2D" uid="uid://dcx1ifdeswg0x" path="res://Arts/cat_toy_001_fish3.png" id="4_wxm4s"]
+[ext_resource type="Texture2D" uid="uid://ca7xfwlmedfsc" path="res://Arts/cat_toy_001_fish4.png" id="5_y4c83"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oqaj1"]
+size = Vector2(60, 34)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_48kiw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_dc7ru")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_bnv3p")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_wxm4s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_y4c83")
+}],
+"loop": true,
+"name": &"blue_free",
+"speed": 2.0
+}]
+
+[node name="Fish" type="Area2D"]
+position = Vector2(431, 293)
+script = ExtResource("1_cjfyf")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_oqaj1")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_48kiw")
+animation = &"blue_free"
+frame_progress = 0.588561

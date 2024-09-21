@@ -1,0 +1,111 @@
+[gd_scene load_steps=9 format=3 uid="uid://bt70o7f2nitxq"]
+
+[ext_resource type="Script" path="res://Scenes/main.gd" id="1_7dn0d"]
+[ext_resource type="Script" path="res://Scenes/reception.gd" id="2_6cj35"]
+[ext_resource type="PackedScene" uid="uid://dljipn773t2td" path="res://Scenes/FrontDoor.tscn" id="2_he1jb"]
+[ext_resource type="Script" path="res://Scenes/back_room.gd" id="4_3kgjm"]
+[ext_resource type="Texture2D" uid="uid://7m1ufq2lkvxf" path="res://Arts/computer_icon.png" id="4_xtl1q"]
+[ext_resource type="Texture2D" uid="uid://dtryxw0fn31gq" path="res://Arts/shelf_001.png" id="5_yvnkr"]
+[ext_resource type="Texture2D" uid="uid://uhqrhhewtndf" path="res://Arts/tree_001.png" id="6_uiwsm"]
+[ext_resource type="Texture2D" uid="uid://cdr622nc3ory4" path="res://Arts/tree_002.png" id="7_33yac"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_7dn0d")
+
+[node name="FrontDoor" parent="." instance=ExtResource("2_he1jb")]
+offset_left = 505.0
+offset_top = 6.0
+offset_right = 943.0
+offset_bottom = 309.0
+
+[node name="Reception" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 6.0
+offset_top = 1.0
+offset_right = 371.0
+offset_bottom = 300.0
+script = ExtResource("2_6cj35")
+
+[node name="GroundColor" type="ColorRect" parent="Reception"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 0.870588, 0.643137, 1)
+
+[node name="GroundControl" type="Control" parent="Reception"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Computer" type="Control" parent="Reception"]
+anchors_preset = 0
+offset_left = 255.0
+offset_top = 161.0
+offset_right = 333.0
+offset_bottom = 244.0
+metadata/_edit_group_ = true
+
+[node name="ComputerIcon" type="TextureRect" parent="Reception/Computer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_xtl1q")
+stretch_mode = 5
+
+[node name="BackRoom" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 3.0
+offset_top = 317.0
+offset_right = 962.0
+offset_bottom = 630.0
+script = ExtResource("4_3kgjm")
+metadata/_edit_group_ = true
+
+[node name="Background" type="ColorRect" parent="BackRoom"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.845162, 0.626777, 0.268582, 1)
+
+[node name="Shelf1" type="TextureRect" parent="BackRoom"]
+layout_mode = 0
+offset_left = 88.0
+offset_top = 39.0
+offset_right = 209.0
+offset_bottom = 120.0
+scale = Vector2(2, 2)
+texture = ExtResource("5_yvnkr")
+stretch_mode = 5
+
+[node name="Tree1" type="TextureRect" parent="BackRoom"]
+layout_mode = 0
+offset_left = 415.0
+offset_top = 178.0
+offset_right = 479.0
+offset_bottom = 242.0
+scale = Vector2(2, 2)
+texture = ExtResource("6_uiwsm")
+stretch_mode = 5
+
+[node name="Tree2" type="TextureRect" parent="BackRoom"]
+layout_mode = 0
+offset_left = 500.0
+offset_top = 100.0
+offset_right = 686.0
+offset_bottom = 330.0
+texture = ExtResource("7_33yac")
+stretch_mode = 5

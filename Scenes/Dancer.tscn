@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://rfgeoyehjot3"]
+
+[ext_resource type="Script" path="res://Scenes/dancer.gd" id="1_ue8rf"]
+[ext_resource type="Texture2D" uid="uid://bmnmcrqieddcb" path="res://Arts/cat_toy_003_dancer1.png" id="2_ml0pr"]
+[ext_resource type="Texture2D" uid="uid://bl5ae8ki3cb8n" path="res://Arts/cat_toy_003_dancer2.png" id="3_mwuuv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oqaj1"]
+size = Vector2(60, 34)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_48kiw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_ml0pr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_mwuuv")
+}],
+"loop": true,
+"name": &"dancing",
+"speed": 2.0
+}]
+
+[node name="Dancer" type="Area2D"]
+position = Vector2(431, 293)
+script = ExtResource("1_ue8rf")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_oqaj1")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_48kiw")
+animation = &"dancing"
+frame_progress = 0.621861

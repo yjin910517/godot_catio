@@ -1,0 +1,104 @@
+[gd_scene load_steps=13 format=3 uid="uid://mwuftpbtmbn5"]
+
+[ext_resource type="Script" path="res://Scenes/cat.gd" id="1_f4exp"]
+[ext_resource type="Texture2D" uid="uid://b7atf4sacvw2d" path="res://Arts/cat_001_idel1.png" id="2_5wf03"]
+[ext_resource type="Texture2D" uid="uid://b4rjbwrsum1ac" path="res://Arts/cat_001_idel2.png" id="3_nj53r"]
+[ext_resource type="Texture2D" uid="uid://dmv3u3hd6wn42" path="res://Arts/cat_001_rest1.png" id="4_6gwjk"]
+[ext_resource type="Texture2D" uid="uid://0r5wjgmrebfh" path="res://Arts/cat_002_idle1.png" id="4_auurb"]
+[ext_resource type="Texture2D" uid="uid://barxjf811f3ft" path="res://Arts/cat_001_rest2.png" id="5_1est0"]
+[ext_resource type="Texture2D" uid="uid://cdwrhi35u0lvn" path="res://Arts/cat_002_idle2.png" id="5_mvbyp"]
+[ext_resource type="Texture2D" uid="uid://cemcngsevu7hm" path="res://Arts/reaction_blank_bubble.png" id="6_5aaot"]
+[ext_resource type="Texture2D" uid="uid://cq1tb73faav0x" path="res://Arts/reaction_question.png" id="7_lbxmb"]
+[ext_resource type="Texture2D" uid="uid://clhj1opgu0db6" path="res://Arts/cat_003_idle1.png" id="8_jeh4c"]
+[ext_resource type="Texture2D" uid="uid://88itw7ipdq" path="res://Arts/cat_003_idle2.png" id="9_rex1o"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_44axp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_5wf03")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_nj53r")
+}],
+"loop": true,
+"name": &"cat_001_idle",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_6gwjk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_1est0")
+}],
+"loop": true,
+"name": &"cat_001_rest",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_auurb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_mvbyp")
+}],
+"loop": true,
+"name": &"cat_002_idle",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_jeh4c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_rex1o")
+}],
+"loop": true,
+"name": &"cat_003_idel",
+"speed": 3.0
+}]
+
+[node name="Cat" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 77.0
+offset_bottom = 93.0
+script = ExtResource("1_f4exp")
+metadata/_edit_group_ = true
+
+[node name="CatAnimation" type="AnimatedSprite2D" parent="."]
+position = Vector2(40, 45)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_44axp")
+animation = &"cat_003_idel"
+
+[node name="CatControl" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 0
+offset_left = -4.0
+offset_right = 76.0
+offset_bottom = 93.0
+
+[node name="Bubble" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 11.0
+offset_top = -46.0
+offset_right = 53.0
+offset_bottom = -2.0
+texture = ExtResource("6_5aaot")
+metadata/_edit_group_ = true
+
+[node name="ReactionIcon" type="TextureRect" parent="Bubble"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 8.0
+offset_right = -11.0
+offset_bottom = -14.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_lbxmb")
+stretch_mode = 5

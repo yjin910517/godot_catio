@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://tm60acdoacny"]
+
+[ext_resource type="Texture2D" uid="uid://cpxdsofrn2t73" path="res://Arts/cat_toy_001_fish2.png" id="1_fbg57"]
+[ext_resource type="Script" path="res://Scenes/menu_item.gd" id="2_jci0b"]
+
+[node name="ToyMenuItem" type="Button"]
+offset_left = 315.0
+offset_top = 182.0
+offset_right = 388.0
+offset_bottom = 213.0
+toggle_mode = true
+text = "Fish"
+icon = ExtResource("1_fbg57")
+script = ExtResource("2_jci0b")
+metadata/_edit_group_ = true
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]
