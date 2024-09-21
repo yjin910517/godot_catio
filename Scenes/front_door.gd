@@ -3,8 +3,9 @@ extends Control
 signal cat_ready_to_reception(cat)
 
 
-# Preload the Cat scene
+# Preload scenes
 var CatScene = preload("res://Scenes/Cat.tscn")
+var StationScene = preload("res://Scenes/Station.tscn")
 
 # To do: save data in a separate data file
 var CAT_LIST = [
@@ -44,18 +45,26 @@ var BAR_MAX_LEN = 80.0 # maximum station like bar length (100% like)
 var LIKE_MAX_SCORE = 10.0 # maximum cat greeting score (100% like)
 
 
+# custom scene attributes
+var station_pos_array = [Vector2(50, 230), Vector2(260, 230)]
+var cat_wait_time = 2
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-
-	# to do: dynamically create station nodes
-	$Station1.get_node("LikeBar").hide()
-	$Station2.get_node("LikeBar").hide()
 	
+	# initiate stations
+	var station
+	for i in range(len(station_pos_array)):
+		station = StationScene.instantiate()
+		station.hide_like_bar()
+		station.position = station_pos_array[i]
+		add_child(station)
+		station.name = "S" + str(i)
+		
 	# initiate menu
 	var greeting_menu = $GreetingMenu
 	greeting_menu.predefined_items = GREETING_ITEMS
 	greeting_menu.item_spacing = GREETING_MENU_SPACING
-	print(greeting_menu.item_spacing)
 	greeting_menu.populate_menu()
 	greeting_menu.position = GREETING_MENU_POS
 	greeting_menu.size = GREETING_MENU_SIZE
@@ -63,6 +72,7 @@ func _ready():
 	
 	# initiate timer
 	$CatTimer.connect("timeout", Callable(self, "_on_cat_timer_timeout"))
+	$CatTimer.wait_time = cat_wait_time
 	$CatTimer.one_shot = false
 	# start timer to create cats
 	$CatTimer.start()
@@ -70,11 +80,21 @@ func _ready():
 
 # Trigger cat creation by timeout
 func _on_cat_timer_timeout():
-	if $Station1.vacancy == true:
-		create_cat(CAT_LIST[0], $Station1)
-	elif $Station2.vacancy == true:
-		create_cat(CAT_LIST[1], $Station2)
-	else:
+	
+	var station_node
+	var has_vacancy = false
+
+	# find an available station for cat creation
+	for i in range(len(station_pos_array)):
+		var station_name = "S" + str(i)
+		station_node = get_node(station_name)
+		if station_node.vacancy == true:
+			create_cat(CAT_LIST.pick_random(), station_node)
+			has_vacancy = true
+			break
+
+	# if no available station is found, stop the timer
+	if has_vacancy == false:
 		$CatTimer.stop()
 		
 		
@@ -97,9 +117,7 @@ func create_cat(cat_data, station):
 	
 	# reset like bar on station
 	station.set_bar_length(1)
-	station.get_node("LikeBar").show()
-	
-	print("cat created: ", cat.get_cat_data())
+	station.show_like_bar()
 
 
 # Interact with the cat and show reaction
@@ -107,6 +125,8 @@ func _on_cat_clicked(cat):
 
 	var selected_node = $GreetingMenu.selected_item
 	var like_score = 0
+	var cat_station = cat.get_parent()
+	var bar_length = cat_station.get_bar_length()
 	
 	# get cat preference
 	if selected_node:
@@ -115,19 +135,20 @@ func _on_cat_clicked(cat):
 		else: 
 			like_score = cat.get_cat_data("food")[selected_node.name]
 		
-		# calculate current like score
-		var bar_length = cat.get_parent().get_bar_length()
-		bar_length += like_score * BAR_MAX_LEN / LIKE_MAX_SCORE
-		if bar_length < 0: 
-			bar_length = 0
-		if bar_length > BAR_MAX_LEN:
-			bar_length =  BAR_MAX_LEN
-			emit_signal("cat_ready_to_reception", cat)
-			cat.reaction_enabled = false
-			print("cat is happy and ready to move")
-			
-		# update like bar length to reflect change
-		cat.get_parent().set_bar_length(bar_length)
+	# calculate current like score
+	bar_length += like_score * BAR_MAX_LEN / LIKE_MAX_SCORE
+	if bar_length < 0: 
+		bar_length = 0
+	if bar_length > BAR_MAX_LEN:
+		bar_length =  BAR_MAX_LEN
+
+	# update bar length and display cat reaction
+	var cat_reaction = cat.get_reaction(like_score)
+	cat_station.set_bar_length(bar_length)
+	cat_station.run_bar_animation(cat_reaction)
+	await cat.show_reaction(cat_reaction)
 	
-	# display cat reaction icon
-	cat.show_reaction(cat.get_reaction(like_score))
+	# emit signal if cat is ready to move
+	if bar_length == BAR_MAX_LEN:
+		emit_signal("cat_ready_to_reception", cat)
+		cat.reaction_enabled = false

@@ -22,7 +22,6 @@ func populate_menu():
 		var menu_item = MenuItemScene.instantiate() # Create a new MenuItem instance
 		menu_item.set_item_data(item_data) # Set the item's data
 		menu_item.name = item_data.name
-		print(menu_item.name)
 		menu_item.connect("item_clicked", Callable(self, "_on_item_clicked")) # Connect the item click signal
 		
 		# Set the item's position based on its index in the grid

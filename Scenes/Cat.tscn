@@ -65,7 +65,6 @@ anchors_preset = 0
 offset_right = 77.0
 offset_bottom = 93.0
 script = ExtResource("1_f4exp")
-metadata/_edit_group_ = true
 
 [node name="CatAnimation" type="AnimatedSprite2D" parent="."]
 position = Vector2(40, 45)

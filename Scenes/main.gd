@@ -17,6 +17,7 @@ var TOY_MENU_POS = Vector2(400, 320)
 var TOY_MENU_SIZE = Vector2(120, 300)
 var TOY_MENU_COLOR = Color(0, 0.24, 0.3, 1)
 
+
 # To do: load initial data and dynamic generate each child in main
 func _ready():
 	$Reception.connect("reception_clicked", Callable(self, "_on_reception_clicked"))
@@ -47,14 +48,19 @@ func _on_reception_clicked(clicked_pos):
 
 # Move cat from front door to reception
 func _on_cat_ready_to_reception(cat):
-	var cat_data = cat.get_cat_data()
-	# To do: disconnect cat click signal connection to front door
-	# To do: reset front door station: remove cat node, reset like bar len
 	
-	# update cat location info
+	# reset front door and its station
+	$FrontDoor.disconnect("cat_clicked", Callable(self, "_on_cat_clicked"))
+	var cat_station = cat.get_parent()
+	cat_station.remove_child(cat)
+	cat_station.vacancy = true
+	cat_station.set_bar_length(1)
+	cat_station.get_node("LikeBar").hide()
+	
+	# update cat data
+	var cat_data = cat.get_cat_data()
 	cat_data["room"] = "reception"
 	cat.set_cat_data(cat_data)
-	print("main received ", cat_data["name"])
 
 	cat.position = $Reception.queue_end
 	
@@ -62,8 +68,9 @@ func _on_cat_ready_to_reception(cat):
 	$Reception.cats_in_queue += 1
 	$Reception.queue_end += $Reception.queue_space
 	
-	# start front door cat creation once a cat is removed
-	$FrontDoor/CatTimer.start()
+	# start front door cat creation if the queue is not at capacity
+	if $Reception.cats_in_queue <= 2:
+		$FrontDoor/CatTimer.start()
 
 
 func _on_computer_icon_clicked():

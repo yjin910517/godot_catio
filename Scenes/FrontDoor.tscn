@@ -1,7 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://dljipn773t2td"]
+[gd_scene load_steps=3 format=3 uid="uid://dljipn773t2td"]
 
 [ext_resource type="Script" path="res://Scenes/front_door.gd" id="1_aaymk"]
-[ext_resource type="PackedScene" uid="uid://b445w0ojxpr7h" path="res://Scenes/Station.tscn" id="2_re72b"]
 [ext_resource type="PackedScene" uid="uid://bvvj6uvq814a4" path="res://Scenes/MenuDisplay.tscn" id="3_yoocq"]
 
 [node name="FrontDoor" type="Control"]
@@ -10,7 +9,6 @@ anchors_preset = 0
 offset_right = 438.0
 offset_bottom = 303.0
 script = ExtResource("1_aaymk")
-metadata/_edit_group_ = true
 
 [node name="Floor" type="ColorRect" parent="."]
 layout_mode = 1
@@ -21,23 +19,18 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.516788, 0.309127, 0.343115, 1)
 
-[node name="Station1" parent="." instance=ExtResource("2_re72b")]
-offset_left = 47.0
-offset_top = 229.0
-offset_right = 167.0
-offset_bottom = 259.0
-
-[node name="Station2" parent="." instance=ExtResource("2_re72b")]
-offset_left = 263.0
-offset_top = 229.0
-offset_right = 383.0
-offset_bottom = 259.0
+[node name="StationBase" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 260.0
+offset_right = 405.0
+offset_bottom = 267.0
 
 [node name="CatTimer" type="Timer" parent="."]
 one_shot = true
 
 [node name="GreetingMenu" parent="." instance=ExtResource("3_yoocq")]
-offset_left = 90.0
-offset_top = 32.0
-offset_right = 360.0
-offset_bottom = 80.0
+offset_left = 88.0
+offset_top = 28.0
+offset_right = 358.0
+offset_bottom = 76.0

@@ -20,7 +20,7 @@ func _ready():
 	# Connect the mouse click event
 	$CatControl.connect("gui_input", Callable(self, "_on_gui_input"))
 	$Bubble.hide()
-
+	
 
 # Function to handle mouse input
 func _on_gui_input(event):
@@ -62,6 +62,6 @@ func show_reaction(reaction):
 	# display reaction and temporarily disable click signals on cat
 	reaction_enabled = false
 	$Bubble.show()
-	await get_tree().create_timer(2).timeout
+	await get_tree().create_timer(1).timeout
 	$Bubble.hide()
 	reaction_enabled = true

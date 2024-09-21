@@ -1,0 +1,70 @@
+[gd_scene load_steps=4 format=3 uid="uid://b0vp0yru4pcux"]
+
+[ext_resource type="Script" path="res://Scenes/cat_profile.gd" id="1_bj0f7"]
+[ext_resource type="Texture2D" uid="uid://xjrkq8wo28ik" path="res://Arts/profile_form_background.png" id="2_kalrq"]
+
+[sub_resource type="Theme" id="Theme_ggrqy"]
+
+[node name="CatProfile" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_bj0f7")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 360.0
+offset_bottom = 480.0
+texture = ExtResource("2_kalrq")
+stretch_mode = 5
+
+[node name="NameLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 100.0
+offset_right = 110.0
+offset_bottom = 140.0
+theme_override_colors/font_color = Color(0.255659, 0.255659, 0.255659, 1)
+text = "Cat Name:"
+
+[node name="Name" type="LineEdit" parent="."]
+layout_mode = 0
+offset_left = 120.0
+offset_top = 100.0
+offset_right = 220.0
+offset_bottom = 140.0
+expand_to_text_length = true
+
+[node name="ColorLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 150.0
+offset_right = 110.0
+offset_bottom = 190.0
+theme_override_colors/font_color = Color(0.255659, 0.255659, 0.255659, 1)
+text = "Cat Color"
+
+[node name="Color" type="ItemList" parent="."]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 180.0
+offset_right = 177.0
+offset_bottom = 353.0
+theme = SubResource("Theme_ggrqy")
+item_count = 1
+
+[node name="ToyLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 200.0
+offset_top = 150.0
+offset_right = 290.0
+offset_bottom = 190.0
+theme_override_colors/font_color = Color(0.255659, 0.255659, 0.255659, 1)
+text = " Like Toys"
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 90.0
+offset_top = 384.0
+offset_right = 271.0
+offset_bottom = 423.0
+text = "Create Cat Profile"
