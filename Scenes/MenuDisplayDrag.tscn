@@ -1,13 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://b1wyor2i650p1"]
+[gd_scene load_steps=2 format=3 uid="uid://bvvj6uvq814a4"]
 
-[ext_resource type="Script" path="res://Scenes/menu_display_drag.gd" id="1_6l3p3"]
+[ext_resource type="Script" path="res://Scenes/menu_display_drag.gd" id="1_4ed6o"]
 
 [node name="MenuDisplay" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 131.0
 offset_bottom = 295.0
-script = ExtResource("1_6l3p3")
+script = ExtResource("1_4ed6o")
 metadata/_edit_group_ = true
 
 [node name="MenuColor" type="ColorRect" parent="."]

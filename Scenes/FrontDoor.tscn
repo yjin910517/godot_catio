@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dljipn773t2td"]
 
 [ext_resource type="Script" path="res://Scenes/front_door.gd" id="1_aaymk"]
-[ext_resource type="PackedScene" uid="uid://bvvj6uvq814a4" path="res://Scenes/MenuDisplay.tscn" id="3_yoocq"]
+[ext_resource type="PackedScene" uid="uid://bvvj6uvq814a4" path="res://Scenes/MenuDisplayDrag.tscn" id="3_yoocq"]
 
 [node name="FrontDoor" type="Control"]
 layout_mode = 3

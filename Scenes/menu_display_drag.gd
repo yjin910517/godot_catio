@@ -1,12 +1,12 @@
 extends Control
 
 # Preload the MenuItem scene
-var MenuItemScene = preload("res://Scenes/MenuItem.tscn")
+var MenuItemScene = preload("res://Scenes/MenuItemDrag.tscn")
 
 # Custom scene attributes
 var predefined_items = []
-var selected_item = null
 var item_spacing = null
+var selected_item = null
 
 
 # Called when the scene is added to the tree
@@ -33,9 +33,6 @@ func populate_menu():
 
 # Function to handle item clicks
 func _on_item_clicked(menu_item):
-	if selected_item: # Deselect the previous item
-		selected_item.deselect()
+	selected_item = menu_item
+	print(name, " received selection: ", selected_item.name)
 	
-	selected_item = menu_item # Set the new selected item
-	selected_item.select() # Highlight the new selection
-	print(name, " received selection: ", menu_item.name)
