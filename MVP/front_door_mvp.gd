@@ -29,7 +29,7 @@ var CAT_LIST = [
 ]
 	
 # define global varaibles
-var GREETING_MENU_POS = Vector2(90, 30)
+var GREETING_MENU_POS = Vector2(90, 400)
 var GREETING_MENU_SIZE = Vector2(300, 60)
 var GREETING_MENU_COLOR = Color(0, 0.24, 0.3, 1)
 
@@ -39,10 +39,9 @@ var greeting_menu = null
 var cat_wait_time = 2
 
 func _ready():
-	# establish signal connections
-	greeting_menu = $GreetingMenu
 	
 	# initiate menu
+	greeting_menu = $GreetingMenu
 	greeting_menu.predefined_items = GREETING_ITEMS
 	greeting_menu.item_spacing = GREETING_MENU_SPACING
 	greeting_menu.populate_menu()
@@ -54,16 +53,15 @@ func _ready():
 	$CatTimer.connect("timeout", Callable(self, "_on_cat_timer_timeout"))
 	$CatTimer.wait_time = cat_wait_time
 	$CatTimer.one_shot = true
+	
 	# start timer to create cats
 	$CatTimer.start()
 
-	
 
 # Trigger cat creation by timeout
 func _on_cat_timer_timeout():
 	
 	create_cat(CAT_LIST.pick_random())
-	$CatTimer.stop()
 		
 		
 # Add new cats to scene
@@ -77,24 +75,14 @@ func create_cat(cat_data):
 	cat.position = Vector2(200, 200)
 	
 	# connect cat signal and add child
-	cat.connect("cat_greeted", Callable(self, "_on_cat_greeted"))
+	cat.connect("cat_satisfied", Callable(self, "_on_cat_satisfied"))
 	add_child(cat)
-
-
-# Interact with the cat and show reaction
-func _on_cat_greeted(cat, greet_item):
-
-	var selected_node = greet_item
-	var like_score = 0
+	$CatTimer.stop()
 	
-	# get cat preference
-	if selected_node:
-		if selected_node.name == 'Petting':
-			like_score = cat.get_cat_data("pet")
-		else: 
-			like_score = cat.get_cat_data("food")[selected_node.name]
-		
-	# update bar length and display cat reaction
-	var cat_reaction = cat.get_reaction(like_score)
-	await cat.show_reaction(cat_reaction)
-	
+
+func _on_cat_satisfied(cat):
+	print("front door knows cat satisfied")
+	# add additional effects before removing cat
+	remove_child(cat)
+	cat.queue_free()
+	$CatTimer.start()

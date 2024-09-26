@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bbgjyafrs8wfj"]
+[gd_scene load_steps=14 format=3 uid="uid://bbgjyafrs8wfj"]
 
 [ext_resource type="Script" path="res://MVP/cat_mvp.gd" id="1_a00f8"]
 [ext_resource type="Texture2D" uid="uid://b7atf4sacvw2d" path="res://Arts/cat_001_idel1.png" id="2_76e2o"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://88itw7ipdq" path="res://Arts/cat_003_idle2.png" id="9_vuwlu"]
 [ext_resource type="Texture2D" uid="uid://cemcngsevu7hm" path="res://Arts/reaction_blank_bubble.png" id="10_4xvlj"]
 [ext_resource type="Texture2D" uid="uid://cq1tb73faav0x" path="res://Arts/reaction_question.png" id="11_3x2kw"]
+[ext_resource type="PackedScene" uid="uid://cvfv5vaxi5q6n" path="res://MVP/CatStatus.tscn" id="12_8cdfb"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_44axp"]
 animations = [{
@@ -70,7 +71,7 @@ script = ExtResource("1_a00f8")
 position = Vector2(40, 45)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_44axp")
-animation = &"cat_003_idel"
+animation = &"cat_001_idle"
 
 [node name="Bubble" type="TextureRect" parent="."]
 layout_mode = 0
@@ -94,3 +95,9 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("11_3x2kw")
 stretch_mode = 5
+
+[node name="CatStatus" parent="." instance=ExtResource("12_8cdfb")]
+offset_left = -29.0
+offset_top = 101.0
+offset_right = 91.0
+offset_bottom = 131.0
