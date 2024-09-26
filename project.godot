@@ -13,12 +13,12 @@ config_version=5
 config/name="2 - Practice 2D Game - Catio"
 run/main_scene="res://Scenes/Main.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="res://Arts/food_canned1.png"
 
 [display]
 
 window/size/viewport_width=960
-window/size/viewport_height=640
+window/size/viewport_height=540
 
 [input]
 

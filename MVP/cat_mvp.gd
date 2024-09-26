@@ -1,6 +1,5 @@
 extends Control
 
-signal cat_clicked(cat)
 signal cat_greeted(cat, menu_item)
 
 
@@ -13,20 +12,12 @@ var reaction_icons = {
 
 var cat_data = null
 var reaction_enabled = true
+var satisfaction = 0
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	# Connect the mouse click event
-	$CatControl.connect("gui_input", Callable(self, "_on_gui_input"))
 	$Bubble.hide()
-	
-
-# Function to handle mouse input
-func _on_gui_input(event):
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-		if reaction_enabled == true:
-			emit_signal("cat_clicked", self) # Emit a signal when the cat is clicked
 
 
 # Get cat data attributes
@@ -56,6 +47,10 @@ func _drop_data(position, data):
 
 # Decide cat reaction based on preference score
 func get_reaction(score):
+	
+	# to do: check satisfaction after update
+	satisfaction += score
+	
 	if score == null:
 		return "idle"
 	elif score > 0:
