@@ -29,14 +29,17 @@ var CAT_LIST = [
 ]
 	
 # define global varaibles
-var GREETING_MENU_POS = Vector2(90, 400)
+var GREETING_MENU_POS = Vector2(90, 470)
 var GREETING_MENU_SIZE = Vector2(300, 60)
-var GREETING_MENU_COLOR = Color(0, 0.24, 0.3, 1)
+var GREETING_MENU_COLOR = Color(0, 0.24, 0.3, 0.5)
 
 var GREETING_MENU_SPACING = Vector2(24,10)
 
 var greeting_menu = null
 var cat_wait_time = 2
+
+var ScoreIcon = load("res://Arts/reaction_like.png")
+var score = 0
 
 func _ready():
 	
@@ -72,7 +75,7 @@ func create_cat(cat_data):
 	cat.set_cat_data(cat_data)
 	
 	# place cat on specified location
-	cat.position = Vector2(200, 200)
+	cat.position = Vector2(200, 250)
 	
 	# connect cat signal and add child
 	cat.connect("cat_satisfied", Callable(self, "_on_cat_satisfied"))
@@ -82,7 +85,24 @@ func create_cat(cat_data):
 
 func _on_cat_satisfied(cat):
 	print("front door knows cat satisfied")
-	# add additional effects before removing cat
+	
+	# show visual effects after scoring
+	var moving_icon = Sprite2D.new()
+	moving_icon.texture = ScoreIcon
+	moving_icon.scale = Vector2(2,2)
+	moving_icon.position = cat.position
+	add_child(moving_icon)
+	var tween = get_tree().create_tween()
+	tween.tween_property(moving_icon, "position", $CatCounter.position, 1)
+	tween.tween_callback(moving_icon.queue_free)
+	
+	# update score display
+	score += 1
+	$CatCounter.text = str(score)
+	
+	# clean up
 	remove_child(cat)
 	cat.queue_free()
+	
+	# start accepting new cats
 	$CatTimer.start()
