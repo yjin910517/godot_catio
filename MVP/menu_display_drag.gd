@@ -1,7 +1,7 @@
 extends Control
 
 # Preload the MenuItem scene
-var MenuItemScene = preload("res://Scenes/MenuItemDrag.tscn")
+var MenuItemScene = preload("res://MVP/MenuItemDrag.tscn")
 
 # Custom scene attributes
 var predefined_items = []

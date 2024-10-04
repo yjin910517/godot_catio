@@ -9,7 +9,7 @@ var reaction_icons = {
 	"neutral": load("res://Arts/reaction_question.png")
 }
 
-var MAX_SCORE = 10
+var MAX_SCORE = 5
 
 var cat_data = null
 var reaction_enabled = true

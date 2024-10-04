@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="2 - Practice 2D Game - Catio"
-run/main_scene="res://Scenes/Main.tscn"
+run/main_scene="res://MVP/FrontDoorMVP.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://Arts/food_canned1.png"
 

@@ -71,7 +71,7 @@ script = ExtResource("1_a00f8")
 position = Vector2(40, 45)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_44axp")
-animation = &"cat_001_idle"
+animation = &"cat_003_idel"
 
 [node name="Bubble" type="TextureRect" parent="."]
 layout_mode = 0

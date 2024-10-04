@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://d2vqn8hg1g3xy"]
+
+[ext_resource type="Texture2D" uid="uid://b5ikymf55srds" path="res://Arts/reaction_like.png" id="1_th4n8"]
+[ext_resource type="Script" path="res://MVP/score_particles.gd" id="2_1aa3g"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_uw4ow"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+scale_min = 0.5
+
+[node name="ScoreParticles" type="GPUParticles2D"]
+position = Vector2(81, 55)
+amount = 16
+process_material = SubResource("ParticleProcessMaterial_uw4ow")
+texture = ExtResource("1_th4n8")
+lifetime = 0.3
+script = ExtResource("2_1aa3g")

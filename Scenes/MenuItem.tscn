@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://8mn00sl1ynm8"]
 
-[ext_resource type="Script" path="res://Scenes/menu_item_drag.gd" id="1_a5123"]
+[ext_resource type="Script" path="res://MVP/menu_item_drag.gd" id="1_a5123"]
 [ext_resource type="Texture2D" uid="uid://dibnh6gpgwu64" path="res://Arts/cat_toy_002_mouse2.png" id="2_qot3x"]
 
 [node name="MenuItem" type="Control"]
