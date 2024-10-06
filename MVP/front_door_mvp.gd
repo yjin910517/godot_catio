@@ -120,8 +120,7 @@ func _on_cat_scored(moving_icon, cat):
 	
 	# remove cat from scene
 	# to do: update tracker data on hearts level
-	remove_child(cat)
-	cat.queue_free()
+	cat.fade_out()
 	
 	# start accepting new cats
 	cat_timer.start()

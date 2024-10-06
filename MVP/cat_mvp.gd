@@ -15,10 +15,30 @@ var cat_data = null
 var reaction_enabled = true
 var satisfaction = 0
 
+@onready var cat_shader = $CatAnimation.material
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$Bubble.hide()
+	fade_in()
+
+
+# fade in and out effect with shader
+func fade_in():
+	var tween = get_tree().create_tween()
+	cat_shader.set_shader_parameter("fade_amount", 0.0)
+	tween.tween_property(cat_shader, "shader_parameter/fade_amount", 1.0, 0.8)
+
+
+func fade_out():
+	
+	var tween = get_tree().create_tween()
+	cat_shader.set_shader_parameter("fade_amount", 1.0)
+	tween.tween_property(cat_shader, "shader_parameter/fade_amount", 0.0, 0.5)
+	
+	# delete cat node
+	tween.tween_callback(queue_free)
 
 
 # Get cat data attributes

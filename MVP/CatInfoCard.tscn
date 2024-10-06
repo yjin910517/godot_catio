@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://c1r5gp4tan27l"]
+
+[node name="CatInfoCard" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 504.0
+offset_bottom = 386.0
+
+[node name="TileMap" type="TileMap" parent="."]
+format = 2
