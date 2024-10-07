@@ -107,3 +107,5 @@ offset_left = -29.0
 offset_top = 101.0
 offset_right = 91.0
 offset_bottom = 131.0
+
+[node name="ReactionSound" type="AudioStreamPlayer2D" parent="."]

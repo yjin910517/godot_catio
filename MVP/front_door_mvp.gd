@@ -45,12 +45,16 @@ var score = 0
 var greeting_menu
 var cat_counter
 var cat_timer
+var bgm_player
 
+
+# On node ready
 func _ready():
 	
 	greeting_menu = $GreetingMenu
 	cat_counter = $CatCounter
 	cat_timer = $CatTimer
+	bgm_player = $BGM
 	
 	# initiate menu
 	greeting_menu.predefined_items = GREETING_ITEMS
@@ -67,6 +71,9 @@ func _ready():
 	
 	# start timer to create cats
 	cat_timer.start()
+	
+	# play bgm
+	bgm_player.play()
 
 
 # Trigger cat creation by timeout

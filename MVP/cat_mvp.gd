@@ -9,6 +9,12 @@ var reaction_icons = {
 	"neutral": load("res://Arts/reaction_question.png")
 }
 
+# cat audio
+var meow_list = [
+	preload('res://Audios/meow_clip_1.wav'),
+	preload('res://Audios/meow_clip_2.wav')
+]
+
 var MAX_SCORE = 5
 
 var cat_data = null
@@ -104,6 +110,8 @@ func show_reaction(menu_item):
 	
 	# check satisfaction
 	if satisfaction >= MAX_SCORE:
+		$ReactionSound.stream = meow_list.pick_random()
+		$ReactionSound.play()
 		emit_signal("cat_satisfied", self)
 		
 	if satisfaction < 0:

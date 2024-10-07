@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://dsc46egiqa03o"]
+[gd_scene load_steps=6 format=3 uid="uid://dsc46egiqa03o"]
 
 [ext_resource type="Script" path="res://MVP/front_door_mvp.gd" id="1_sfnq6"]
 [ext_resource type="PackedScene" uid="uid://bvvj6uvq814a4" path="res://MVP/MenuDisplayDrag.tscn" id="2_bwp5n"]
 [ext_resource type="Texture2D" uid="uid://rb8f0dpopnyr" path="res://Arts/backyard_001.png" id="2_pvq2e"]
 [ext_resource type="Texture2D" uid="uid://dmv3u3hd6wn42" path="res://Arts/cat_001_rest1.png" id="3_4743q"]
+[ext_resource type="AudioStream" uid="uid://d1vbvuuq5ilur" path="res://Audios/1-Catio.wav" id="5_7x3wy"]
 
 [node name="FrontDoorMVP" type="Control"]
 layout_mode = 3
@@ -57,3 +58,6 @@ layout_mode = 0
 offset_left = -64.0
 offset_bottom = 48.0
 texture = ExtResource("3_4743q")
+
+[node name="BGM" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_7x3wy")
