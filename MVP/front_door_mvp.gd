@@ -7,25 +7,43 @@ var ParticleScene = preload("res://MVP/ScoreParticles.tscn")
 
 # To do: save data in separate file
 var GREETING_ITEMS = [
-		{ "name": "Canned Food", "icon": load("res://Arts/food_canned2.png") },
-		{ "name": "Dry Food", "icon": load("res://Arts/food_dry_bowl.png") },
-		{ "name": "Petting", "icon": load("res://Arts/petting_icon.png") }
+		{ "id": "canned_food", "name": "Canned Food", "icon": load("res://Arts/food_canned2.png") },
+		{ "id": "dry_food", "name": "Dry Food", "icon": load("res://Arts/food_dry_bowl.png") },
+		{ "id": "pet", "name": "Petting", "icon": load("res://Arts/petting_icon.png") }
 	]
 	
 var CAT_LIST = [
 	{
 		"id": "cat_001",
-		"toy": ["Fish"],
-		"pet": 0,
-		"food": {"Canned Food": 5, "Dry Food": 1},
-		"status": "idle"
+		"pet": 2,
+		"canned_food": 1, 
+		"dry_food": 1,
+		"status": "idle",
+		"visits": 0
 	},
 	{
 		"id": "cat_002",
-		"toy": ["Mouse"],
 		"pet": -1,
-		"food": {"Canned Food": 0, "Dry Food": 3},
-		"status": "idle"
+		"canned_food": 1, 
+		"dry_food": 1,
+		"status": "idle",
+		"visits": 0
+	},
+	{
+		"id": "cat_003",
+		"pet": 2,
+		"canned_food": 1, 
+		"dry_food": 1,
+		"status": "idle",
+		"visits": 0
+	},
+	{
+		"id": "cat_004",
+		"pet": 1,
+		"canned_food": 2, 
+		"dry_food": 1,
+		"status": "idle",
+		"visits": 0
 	}
 ]
 	
@@ -125,8 +143,14 @@ func _on_cat_scored(moving_icon, cat):
 	score += 1
 	cat_counter.text = str(score)
 	
+	# update cat visit count
+	var cat_data = cat.get_cat_data()
+	cat_data["visits"] += 1
+	cat.set_cat_data(cat_data)
+	
+	# To do: check visit, stop cat timer and trigger gifting
+	
 	# remove cat from scene
-	# to do: update tracker data on hearts level
 	cat.fade_out()
 	
 	# start accepting new cats

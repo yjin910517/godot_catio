@@ -5,17 +5,17 @@ signal cat_satisfied(cat)
 
 var reaction_icons = { 
 	"like": load("res://Arts/reaction_like.png"), 
-	"dislike": load("res://Arts/reaction_uninterested.png"), 
-	"neutral": load("res://Arts/reaction_question.png")
+	"dislike": load("res://Arts/reaction_uninterested.png")
 }
 
 # cat audio
 var meow_list = [
 	preload('res://Audios/meow_clip_1.wav'),
-	preload('res://Audios/meow_clip_2.wav')
+	preload('res://Audios/meow_clip_2.wav'),
+	preload('res://Audios/meow_clip_3.wav')
 ]
 
-var MAX_SCORE = 5
+var MAX_SCORE = 3
 
 var cat_data = null
 var reaction_enabled = true
@@ -59,6 +59,7 @@ func set_cat_data(data):
 	cat_data = data
 	var animation = cat_data.id + "_" + cat_data.status
 	$CatAnimation.play(animation)
+	$CatStatus.show_visit_count(cat_data.visits)
 
 
 # specify behavior when being dropped on
@@ -76,15 +77,12 @@ func _drop_data(position, data):
 func show_reaction(menu_item):
 	
 	# get cat preference score
-	var like_score
-	if menu_item.name == 'Petting':
-		like_score = cat_data["pet"]
-	else: 
-		like_score = cat_data["food"][menu_item.name]
-	
+	var like_score = cat_data[menu_item.get_item_data("id")]
 	satisfaction += like_score
 	
 	# change display bar length
+	if satisfaction < 0:
+		satisfaction = 0
 	var score_percent = satisfaction * 100 / MAX_SCORE
 	if score_percent > 100:
 		score_percent = 100
@@ -94,8 +92,6 @@ func show_reaction(menu_item):
 	var reaction
 	if like_score > 0:
 		reaction = "like"
-	elif like_score == 0:
-		reaction = "neutral"
 	else:
 		reaction = "dislike"
 
@@ -113,7 +109,4 @@ func show_reaction(menu_item):
 		$ReactionSound.stream = meow_list.pick_random()
 		$ReactionSound.play()
 		emit_signal("cat_satisfied", self)
-		
-	if satisfaction < 0:
-		pass
 		

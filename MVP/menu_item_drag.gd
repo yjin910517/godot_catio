@@ -8,6 +8,12 @@ func _ready():
 	# Connect the mouse click event
 	connect("gui_input", Callable(self, "_on_gui_input"))
 
+# Get item data attributes
+func get_item_data(attr = null):
+	if attr:
+		return item_data.get(attr)
+	return item_data
+	
 # Function to set the item data and icon
 func set_item_data(data):
 	item_data = data
