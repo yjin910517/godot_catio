@@ -57,16 +57,3 @@ grow_horizontal = 2
 text = "My Cat Friends"
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="ESC" type="Label" parent="."]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -22.0
-offset_bottom = 23.0
-grow_horizontal = 0
-theme_override_colors/font_color = Color(0.830335, 0.830335, 0.830335, 0.858824)
-text = "X"
-horizontal_alignment = 1
-vertical_alignment = 1
