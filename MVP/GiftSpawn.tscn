@@ -1,0 +1,62 @@
+[gd_scene load_steps=6 format=3 uid="uid://b3aqptdbpu7y1"]
+
+[ext_resource type="Script" path="res://MVP/gift_spawn.gd" id="1_nltvf"]
+[ext_resource type="Texture2D" uid="uid://ce31woogr4bix" path="res://Arts/gift_box.png" id="2_kcvgt"]
+
+[sub_resource type="Animation" id="Animation_bkjpy"]
+resource_name = "new_animation"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(2, 2), Vector2(2.5, 2.5), Vector2(2, 2)]
+}
+
+[sub_resource type="Animation" id="Animation_72fsw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2, 2)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sy3ya"]
+_data = {
+"Gift Icon Anime": SubResource("Animation_bkjpy"),
+"RESET": SubResource("Animation_72fsw")
+}
+
+[node name="GiftSpawn" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 65.0
+offset_top = 270.0
+offset_right = 117.0
+offset_bottom = 322.0
+mouse_filter = 1
+script = ExtResource("1_nltvf")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="TextureRect" parent="."]
+layout_mode = 0
+scale = Vector2(2, 2)
+texture = ExtResource("2_kcvgt")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_sy3ya")
+}

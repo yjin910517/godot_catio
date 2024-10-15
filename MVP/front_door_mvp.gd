@@ -19,6 +19,7 @@ var CAT_LIST = [
 		"canned_food": 1, 
 		"dry_food": 1,
 		"status": "idle",
+		"gift": "fish",
 		"visits": 0
 	},
 	{
@@ -27,6 +28,7 @@ var CAT_LIST = [
 		"canned_food": 1, 
 		"dry_food": 1,
 		"status": "idle",
+		"gift": "bird",
 		"visits": 0
 	},
 	{
@@ -35,6 +37,7 @@ var CAT_LIST = [
 		"canned_food": 1, 
 		"dry_food": 1,
 		"status": "idle",
+		"gift": "paw print",
 		"visits": 0
 	},
 	{
@@ -43,11 +46,16 @@ var CAT_LIST = [
 		"canned_food": 2, 
 		"dry_food": 1,
 		"status": "idle",
+		"gift": "yarn",
 		"visits": 0
 	}
 ]
-	
+
 # define global varaibles
+var MAX_VISIT = 3
+var CAT_SPAWN_LOCATION = Vector2(200, 250)
+var GIFT_SPAWN_LOCATION = Vector2(200, 350)
+	
 var GREETING_MENU_POS = Vector2(90, 470)
 var GREETING_MENU_SIZE = Vector2(300, 60)
 var GREETING_MENU_COLOR = Color(0, 0.24, 0.3, 0.5)
@@ -64,6 +72,7 @@ var greeting_menu
 var cat_counter
 var cat_timer
 var bgm_player
+var gift_spawn
 
 
 # On node ready
@@ -73,6 +82,7 @@ func _ready():
 	cat_counter = $CatCounter
 	cat_timer = $CatTimer
 	bgm_player = $BGM
+	gift_spawn = $GiftSpawn
 	
 	# initiate menu
 	greeting_menu.predefined_items = GREETING_ITEMS
@@ -92,6 +102,11 @@ func _ready():
 	
 	# play bgm
 	bgm_player.play()
+	
+	# initiate gift spawn
+	gift_spawn.position = GIFT_SPAWN_LOCATION
+	gift_spawn.hide()
+	gift_spawn.connect("gift_opened", Callable(self, "_on_gift_opened"))
 
 
 # Trigger cat creation by timeout
@@ -108,7 +123,7 @@ func create_cat(cat_data):
 	cat.set_cat_data(cat_data)
 	
 	# place cat on specified location
-	cat.position = Vector2(200, 250)
+	cat.position = CAT_SPAWN_LOCATION
 	
 	# connect cat signal and add child
 	cat.connect("cat_satisfied", Callable(self, "_on_cat_satisfied"))
@@ -147,11 +162,26 @@ func _on_cat_scored(moving_icon, cat):
 	var cat_data = cat.get_cat_data()
 	cat_data["visits"] += 1
 	cat.set_cat_data(cat_data)
-	
-	# To do: check visit, stop cat timer and trigger gifting
-	
+
 	# remove cat from scene
 	cat.fade_out()
 	
-	# start accepting new cats
+	# check visit count and display gift
+	if cat_data["visits"] == MAX_VISIT:
+		await get_tree().create_timer(1).timeout
+		gift_spawn.set_gift_content(cat_data["gift"])
+		gift_spawn.show()
+		gift_spawn.play_anime()
+		
+	else:
+		# if no gift, start accepting new cats
+		cat_timer.start()
+		
+	
+func _on_gift_opened(gift):
+	print("You just acquired gift: ", gift)
+	gift_spawn.set_gift_content(null)
+	gift_spawn.hide()
+	# To do: show gift info card
+	# To do: add gift display to main scene and highlight
 	cat_timer.start()
