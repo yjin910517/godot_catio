@@ -1,0 +1,71 @@
+[gd_scene load_steps=3 format=3 uid="uid://djwbo1fo54lte"]
+
+[ext_resource type="Script" path="res://MVP/gift_info_card.gd" id="1_5b4mt"]
+[ext_resource type="Texture2D" uid="uid://dmvjhj446hg3v" path="res://Arts/cat_toy_002_mouse3.png" id="1_7fef7"]
+
+[node name="GiftInfoCard" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 320.0
+offset_bottom = 373.0
+script = ExtResource("1_5b4mt")
+metadata/_edit_group_ = true
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.823529, 0.631373, 0.682353, 1)
+
+[node name="Headline" type="Label" parent="."]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 2.0
+offset_right = 293.0
+offset_bottom = 82.0
+theme_override_font_sizes/font_size = 24
+text = "Aww! The cat likes you. This is a gift for you!"
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="IconDisplay" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 103.0
+offset_top = 125.0
+offset_right = 223.0
+offset_bottom = 245.0
+texture = ExtResource("1_7fef7")
+stretch_mode = 5
+
+[node name="ToyName" type="Label" parent="."]
+layout_mode = 0
+offset_left = 121.0
+offset_top = 100.0
+offset_right = 206.0
+offset_bottom = 134.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "MOUSE"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ToyDesc" type="Label" parent="."]
+layout_mode = 0
+offset_left = 59.0
+offset_top = 246.0
+offset_right = 268.0
+offset_bottom = 309.0
+text = "This is a short description about the toy"
+autowrap_mode = 2
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 109.0
+offset_top = 311.0
+offset_right = 217.0
+offset_bottom = 350.0
+theme_override_colors/font_color = Color(0.964706, 0.733333, 0.780392, 1)
+text = "YAY!"

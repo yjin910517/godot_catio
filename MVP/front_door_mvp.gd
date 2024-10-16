@@ -28,7 +28,7 @@ var CAT_LIST = [
 		"canned_food": 1, 
 		"dry_food": 1,
 		"status": "idle",
-		"gift": "bird",
+		"gift": "mouse",
 		"visits": 0
 	},
 	{
@@ -37,7 +37,7 @@ var CAT_LIST = [
 		"canned_food": 1, 
 		"dry_food": 1,
 		"status": "idle",
-		"gift": "paw print",
+		"gift": "square",
 		"visits": 0
 	},
 	{
@@ -46,10 +46,33 @@ var CAT_LIST = [
 		"canned_food": 2, 
 		"dry_food": 1,
 		"status": "idle",
-		"gift": "yarn",
+		"gift": "dancer",
 		"visits": 0
 	}
 ]
+
+var GIFT_LIST = {
+	"fish": {
+		"name": "Fish",
+		"icon_file": load("res://Arts/cat_toy_001_fish1.png"),
+		"desc": "A cool fish. dead"
+	},
+	"mouse": {
+		"name": "Mouse",
+		"icon_file": load("res://Arts/cat_toy_002_mouse3.png"),
+		"desc": "A white rat. still alive"
+	},
+	"dancer": {
+		"name": "Dancer!",
+		"icon_file": load("res://Arts/cat_toy_003_dancer2.png"),
+		"desc": "Dance dance dance "
+	},
+	"square": {
+		"name": "A Square?",
+		"icon_file": load("res://Arts/color_icon_002.png"),
+		"desc": "this is fake"
+	}
+}
 
 # define global varaibles
 var MAX_VISIT = 3
@@ -73,6 +96,7 @@ var cat_counter
 var cat_timer
 var bgm_player
 var gift_spawn
+var gift_info_card
 
 
 # On node ready
@@ -83,6 +107,7 @@ func _ready():
 	cat_timer = $CatTimer
 	bgm_player = $BGM
 	gift_spawn = $GiftSpawn
+	gift_info_card = $GiftInfoCard
 	
 	# initiate menu
 	greeting_menu.predefined_items = GREETING_ITEMS
@@ -107,6 +132,10 @@ func _ready():
 	gift_spawn.position = GIFT_SPAWN_LOCATION
 	gift_spawn.hide()
 	gift_spawn.connect("gift_opened", Callable(self, "_on_gift_opened"))
+	
+	# initiate gift info card
+	gift_info_card.hide()
+	gift_info_card.connect("gift_info_closed", Callable(self, "_on_gift_info_closed"))
 
 
 # Trigger cat creation by timeout
@@ -182,6 +211,13 @@ func _on_gift_opened(gift):
 	print("You just acquired gift: ", gift)
 	gift_spawn.set_gift_content(null)
 	gift_spawn.hide()
-	# To do: show gift info card
+	gift_info_card.set_display_data(GIFT_LIST[gift])
+	gift_info_card.show()
+
+
+func _on_gift_info_closed():
+	
+	gift_info_card.hide()
+	print("the gift display is closed")
 	# To do: add gift display to main scene and highlight
 	cat_timer.start()
