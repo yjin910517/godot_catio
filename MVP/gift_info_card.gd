@@ -1,11 +1,13 @@
 extends Control
 
-signal gift_info_closed()
+signal gift_info_closed(gift_data)
 
 var btn
 var icon_display_node
 var toy_name_node
 var toy_desc_node
+
+var stored_gift_data
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -19,10 +21,12 @@ func _ready() -> void:
 
 
 func set_display_data(gift_data):
+	
+	stored_gift_data = gift_data
 	icon_display_node.texture = gift_data["icon_file"]
 	toy_name_node.text = gift_data["name"]
 	toy_desc_node.text = gift_data["desc"]
 
 
 func _on_button_pressed():
-	emit_signal("gift_info_closed")
+	emit_signal("gift_info_closed", stored_gift_data)

@@ -1,0 +1,43 @@
+[gd_scene load_steps=4 format=3 uid="uid://d24e8gi121j67"]
+
+[ext_resource type="Script" path="res://MVP/shelf_item.gd" id="1_g3net"]
+[ext_resource type="Texture2D" uid="uid://k6pv20buqm5g" path="res://Arts/gift_frame_1.png" id="2_5hlvv"]
+[ext_resource type="Texture2D" uid="uid://cb8qo31otow47" path="res://Arts/gift_icon_leaf.png" id="3_8sa0r"]
+
+[node name="ShelfItem" type="Control"]
+layout_mode = 3
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -30.0
+offset_right = 60.0
+offset_bottom = 30.0
+grow_vertical = 2
+script = ExtResource("1_g3net")
+metadata/_edit_group_ = true
+
+[node name="Frame" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_5hlvv")
+stretch_mode = 5
+
+[node name="Display" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_8sa0r")
+stretch_mode = 5

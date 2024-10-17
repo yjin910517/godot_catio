@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dsc46egiqa03o"]
+[gd_scene load_steps=9 format=3 uid="uid://dsc46egiqa03o"]
 
 [ext_resource type="Script" path="res://MVP/front_door_mvp.gd" id="1_sfnq6"]
 [ext_resource type="PackedScene" uid="uid://bvvj6uvq814a4" path="res://MVP/MenuDisplayDrag.tscn" id="2_bwp5n"]
@@ -7,6 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://d1vbvuuq5ilur" path="res://Audios/1-Catio.wav" id="5_7x3wy"]
 [ext_resource type="PackedScene" uid="uid://b3aqptdbpu7y1" path="res://MVP/GiftSpawn.tscn" id="6_4vjrl"]
 [ext_resource type="PackedScene" uid="uid://djwbo1fo54lte" path="res://MVP/GiftInfoCard.tscn" id="7_2dtwf"]
+[ext_resource type="Script" path="res://MVP/gift_shelf.gd" id="8_n7jti"]
 
 [node name="FrontDoorMVP" type="Control"]
 layout_mode = 3
@@ -70,7 +71,23 @@ stream = ExtResource("5_7x3wy")
 [node name="GiftSpawn" parent="." instance=ExtResource("6_4vjrl")]
 
 [node name="GiftInfoCard" parent="." instance=ExtResource("7_2dtwf")]
-offset_left = 89.0
-offset_top = 73.0
-offset_right = 409.0
-offset_bottom = 446.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -160.0
+offset_top = -190.0
+offset_right = 160.0
+offset_bottom = 183.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GiftShelf" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 15.0
+offset_top = 36.0
+offset_right = 211.0
+offset_bottom = 170.0
+script = ExtResource("8_n7jti")

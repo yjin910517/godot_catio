@@ -37,7 +37,7 @@ var CAT_LIST = [
 		"canned_food": 1, 
 		"dry_food": 1,
 		"status": "idle",
-		"gift": "square",
+		"gift": "leaf",
 		"visits": 0
 	},
 	{
@@ -46,7 +46,7 @@ var CAT_LIST = [
 		"canned_food": 2, 
 		"dry_food": 1,
 		"status": "idle",
-		"gift": "dancer",
+		"gift": "shell",
 		"visits": 0
 	}
 ]
@@ -62,20 +62,20 @@ var GIFT_LIST = {
 		"icon_file": load("res://Arts/cat_toy_002_mouse3.png"),
 		"desc": "A white rat. still alive"
 	},
-	"dancer": {
-		"name": "Dancer!",
-		"icon_file": load("res://Arts/cat_toy_003_dancer2.png"),
-		"desc": "Dance dance dance "
+	"shell": {
+		"name": "Shell",
+		"icon_file": load("res://Arts/gift_icon_shell.png"),
+		"desc": "the treasure from the sea"
 	},
-	"square": {
-		"name": "A Square?",
-		"icon_file": load("res://Arts/color_icon_002.png"),
-		"desc": "this is fake"
+	"leaf": {
+		"name": "Leaf",
+		"icon_file": load("res://Arts/gift_icon_leaf.png"),
+		"desc": "beautiful autumn color"
 	}
 }
 
 # define global varaibles
-var MAX_VISIT = 3
+var MAX_VISIT = 1 # for testing
 var CAT_SPAWN_LOCATION = Vector2(200, 250)
 var GIFT_SPAWN_LOCATION = Vector2(200, 350)
 	
@@ -84,6 +84,8 @@ var GREETING_MENU_SIZE = Vector2(300, 60)
 var GREETING_MENU_COLOR = Color(0, 0.24, 0.3, 0.5)
 
 var GREETING_MENU_SPACING = Vector2(24,10)
+
+var GIFT_INFO_CARD_POS = Vector2(80,80)
 
 var cat_wait_time = 2
 
@@ -97,6 +99,7 @@ var cat_timer
 var bgm_player
 var gift_spawn
 var gift_info_card
+var gift_shelf
 
 
 # On node ready
@@ -108,6 +111,7 @@ func _ready():
 	bgm_player = $BGM
 	gift_spawn = $GiftSpawn
 	gift_info_card = $GiftInfoCard
+	gift_shelf = $GiftShelf
 	
 	# initiate menu
 	greeting_menu.predefined_items = GREETING_ITEMS
@@ -135,6 +139,8 @@ func _ready():
 	
 	# initiate gift info card
 	gift_info_card.hide()
+	gift_info_card.position = GIFT_INFO_CARD_POS
+	gift_info_card.z_index = 2
 	gift_info_card.connect("gift_info_closed", Callable(self, "_on_gift_info_closed"))
 
 
@@ -209,15 +215,23 @@ func _on_cat_scored(moving_icon, cat):
 	
 func _on_gift_opened(gift):
 	print("You just acquired gift: ", gift)
+	
+	# Hide gift box icon
 	gift_spawn.set_gift_content(null)
 	gift_spawn.hide()
+	
+	# Show gift detail info
 	gift_info_card.set_display_data(GIFT_LIST[gift])
 	gift_info_card.show()
 
 
-func _on_gift_info_closed():
+func _on_gift_info_closed(gift_data):
 	
+	# Display gift in background
+	gift_shelf.display_item(gift_data)
+	
+	# To do: add vfx to higlight new display
+	
+	# Restart cycle
 	gift_info_card.hide()
-	print("the gift display is closed")
-	# To do: add gift display to main scene and highlight
 	cat_timer.start()

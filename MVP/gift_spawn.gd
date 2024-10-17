@@ -4,6 +4,11 @@ signal gift_opened(gift)
 
 var gift_content = null
 
+var BOX_LIST = [
+	load("res://Arts/gift_box.png"),
+	load("res://Arts/gift_box_2.png"),
+	load("res://Arts/gift_box_3.png")
+]
 
 func _ready():
 	connect("gui_input", Callable(self, "_on_gui_input"))
@@ -11,7 +16,12 @@ func _ready():
 
 # Update gift content
 func set_gift_content(gift):
+	
+	# store gift data
 	gift_content = gift
+	
+	# choose a random gift box skin
+	$Sprite2D.texture = BOX_LIST.pick_random()
 
 
 # Play anime effect
