@@ -3,13 +3,13 @@ extends Control
 signal cat_satisfied(cat)
 
 
-var reaction_icons = { 
+var REACTION_ICONS = { 
 	"like": load("res://Arts/reaction_like.png"), 
 	"dislike": load("res://Arts/reaction_uninterested.png")
 }
 
 # cat audio
-var meow_list = [
+var MEOW_LIST = [
 	preload('res://Audios/meow_clip_1.wav'),
 	preload('res://Audios/meow_clip_2.wav'),
 	preload('res://Audios/meow_clip_3.wav')
@@ -32,14 +32,14 @@ func _ready():
 
 # fade in and out effect with shader
 func fade_in():
-	var tween = get_tree().create_tween()
+	var tween = create_tween()
 	cat_shader.set_shader_parameter("fade_amount", 0.0)
 	tween.tween_property(cat_shader, "shader_parameter/fade_amount", 1.0, 0.8)
 
 
 func fade_out():
 	
-	var tween = get_tree().create_tween()
+	var tween = create_tween()
 	cat_shader.set_shader_parameter("fade_amount", 1.0)
 	tween.tween_property(cat_shader, "shader_parameter/fade_amount", 0.0, 0.5)
 	
@@ -95,7 +95,7 @@ func show_reaction(menu_item):
 	else:
 		reaction = "dislike"
 
-	$Bubble/ReactionIcon.texture = reaction_icons[reaction]
+	$Bubble/ReactionIcon.texture = REACTION_ICONS[reaction]
 	
 	# display reaction and temporarily disable click signals on cat
 	reaction_enabled = false
@@ -106,7 +106,7 @@ func show_reaction(menu_item):
 	
 	# check satisfaction
 	if satisfaction >= MAX_SCORE:
-		$ReactionSound.stream = meow_list.pick_random()
+		$ReactionSound.stream = MEOW_LIST.pick_random()
 		$ReactionSound.play()
 		emit_signal("cat_satisfied", self)
 		

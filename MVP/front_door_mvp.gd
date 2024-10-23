@@ -19,7 +19,7 @@ var CAT_LIST = [
 		"canned_food": 1, 
 		"dry_food": 1,
 		"status": "idle",
-		"gift": "fish",
+		"gift": "feather",
 		"visits": 0
 	},
 	{
@@ -52,10 +52,10 @@ var CAT_LIST = [
 ]
 
 var GIFT_LIST = {
-	"fish": {
-		"name": "Fish",
-		"icon_file": load("res://Arts/cat_toy_001_fish1.png"),
-		"desc": "A cool fish. dead"
+	"feather": {
+		"name": "Feather",
+		"icon_file": load("res://Arts/gift_icon_feather.png"),
+		"desc": "Exotic colors. how beautiful"
 	},
 	"mouse": {
 		"name": "Mouse",
@@ -76,72 +76,60 @@ var GIFT_LIST = {
 
 # define global varaibles
 var MAX_VISIT = 1 # for testing
+
 var CAT_SPAWN_LOCATION = Vector2(200, 250)
 var GIFT_SPAWN_LOCATION = Vector2(200, 350)
-	
-var GREETING_MENU_POS = Vector2(90, 470)
-var GREETING_MENU_SIZE = Vector2(300, 60)
-var GREETING_MENU_COLOR = Color(0, 0.24, 0.3, 0.5)
-
-var GREETING_MENU_SPACING = Vector2(24,10)
-
-var GIFT_INFO_CARD_POS = Vector2(80,80)
-
-var cat_wait_time = 2
+var GREETING_MENU_LOCATION= Vector2(90, 470)
+var GIFT_INFO_CARD_LOCATION = Vector2(80,80)
 
 var ScoreIcon = load("res://Arts/reaction_like.png")
+
+var cat_wait_time = 2
 var score = 0
 
 # node reference
-var greeting_menu
-var cat_counter
-var cat_timer
-var bgm_player
-var gift_spawn
-var gift_info_card
-var gift_shelf
+@onready var greeting_menu = $GreetingMenu
+@onready var cat_counter = $CatCounter
+@onready var cat_timer = $CatTimer
+@onready var bgm_player = $BGM
+@onready var gift_spawn = $GiftSpawn
+@onready var gift_info_card = $GiftInfoCard
+@onready var gift_shelf = $GiftShelf
 
 
 # On node ready
 func _ready():
 	
-	greeting_menu = $GreetingMenu
-	cat_counter = $CatCounter
-	cat_timer = $CatTimer
-	bgm_player = $BGM
-	gift_spawn = $GiftSpawn
-	gift_info_card = $GiftInfoCard
-	gift_shelf = $GiftShelf
-	
 	# initiate menu
+	greeting_menu.hide()
 	greeting_menu.predefined_items = GREETING_ITEMS
-	greeting_menu.item_spacing = GREETING_MENU_SPACING
+	greeting_menu.position = GREETING_MENU_LOCATION
 	greeting_menu.populate_menu()
-	greeting_menu.position = GREETING_MENU_POS
-	greeting_menu.size = GREETING_MENU_SIZE
-	greeting_menu.get_node("MenuColor").color = GREETING_MENU_COLOR
 
 	# initiate timer
 	cat_timer.connect("timeout", Callable(self, "_on_cat_timer_timeout"))
 	cat_timer.wait_time = cat_wait_time
 	cat_timer.one_shot = true
 	
-	# start timer to create cats
-	cat_timer.start()
-	
-	# play bgm
-	bgm_player.play()
+	# initiate cat counter
+	cat_counter.hide()
 	
 	# initiate gift spawn
-	gift_spawn.position = GIFT_SPAWN_LOCATION
 	gift_spawn.hide()
+	gift_spawn.position = GIFT_SPAWN_LOCATION
 	gift_spawn.connect("gift_opened", Callable(self, "_on_gift_opened"))
 	
 	# initiate gift info card
 	gift_info_card.hide()
-	gift_info_card.position = GIFT_INFO_CARD_POS
+	gift_info_card.position = GIFT_INFO_CARD_LOCATION
 	gift_info_card.z_index = 2
 	gift_info_card.connect("gift_info_closed", Callable(self, "_on_gift_info_closed"))
+
+	# start the game
+	cat_timer.start()
+	bgm_player.play()
+	greeting_menu.show()
+	cat_counter.show()
 
 
 # Trigger cat creation by timeout
@@ -166,16 +154,15 @@ func create_cat(cat_data):
 	cat_timer.stop()
 	
 
+# Trigger feedback when cat is satisfied with a visit
 func _on_cat_satisfied(cat):
-
-	# show visual effects on cat
 	
 	# show visual effects toward score display
 	var moving_icon = ParticleScene.instantiate()
 	moving_icon.texture = ScoreIcon
 	moving_icon.position = cat.position + cat_counter.size / 2
 	add_child(moving_icon)
-	var tween = get_tree().create_tween()
+	var tween = create_tween()
 	var destination_pos = cat_counter.position + Vector2(0, cat_counter.size.y / 2)
 	tween.tween_property(moving_icon, "position", destination_pos, 0.3)
 	
@@ -212,8 +199,10 @@ func _on_cat_scored(moving_icon, cat):
 		# if no gift, start accepting new cats
 		cat_timer.start()
 		
-	
+
+# show gift info card	
 func _on_gift_opened(gift):
+	
 	print("You just acquired gift: ", gift)
 	
 	# Hide gift box icon
@@ -225,6 +214,7 @@ func _on_gift_opened(gift):
 	gift_info_card.show()
 
 
+# add gift display to background
 func _on_gift_info_closed(gift_data):
 	
 	# Display gift in background

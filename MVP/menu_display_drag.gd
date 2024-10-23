@@ -3,15 +3,23 @@ extends Control
 # Preload the MenuItem scene
 var MenuItemScene = preload("res://MVP/MenuItemDrag.tscn")
 
+# Display setting
+var ITEM_SPACING = Vector2(24,10)
+var GREETING_MENU_SIZE = Vector2(300, 60)
+var GREETING_MENU_COLOR = Color(0, 0.24, 0.3, 0.5)
+
 # Custom scene attributes
 var predefined_items = []
-var item_spacing = null
 var selected_item = null
+
+# Node reference
+@onready var color_node = $MenuColor
 
 
 # Called when the scene is added to the tree
 func _ready():
-	pass
+	size = GREETING_MENU_SIZE
+	color_node.color = GREETING_MENU_COLOR
 
 
 # Function to populate the menu with items and arrange them
@@ -24,8 +32,8 @@ func populate_menu():
 		menu_item.connect("item_clicked", Callable(self, "_on_item_clicked")) # Connect the item click signal
 		
 		# Set the item's position based on its index in the grid
-		menu_item.position.x = item_spacing.x + i * (menu_item.size.x + item_spacing.x)
-		menu_item.position.y = item_spacing.y
+		menu_item.position.x = ITEM_SPACING.x + i * (menu_item.size.x + ITEM_SPACING.x)
+		menu_item.position.y = ITEM_SPACING.y
 		
 		# Add the item as a child of MenuDisplay
 		add_child(menu_item)
