@@ -8,9 +8,9 @@ var ShelfItemScene = preload("res://MVP/ShelfItem.tscn")
 
 var POS_DICT = {
 	0: Vector2(0, 40),
-	1: Vector2(80, 0),
-	2: Vector2(90, 80),
-	3: Vector2(160, 30)
+	1: Vector2(80, 30),
+	2: Vector2(160, 50),
+	3: Vector2(240, 40)
 }
 
 

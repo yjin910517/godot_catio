@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://c1r5gp4tan27l"]
+[gd_scene load_steps=6 format=3 uid="uid://c1r5gp4tan27l"]
 
 [ext_resource type="Script" path="res://MVP/cat_info_card.gd" id="1_8u5n0"]
 [ext_resource type="Texture2D" uid="uid://bm2hx5l1u2xyg" path="res://Arts/_cat_info_tileset.png" id="1_axlpj"]
+[ext_resource type="Texture2D" uid="uid://cmygpmpmgth1y" path="res://Arts/ui_icon_quit.png" id="3_d35oh"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wri1i"]
 texture = ExtResource("1_axlpj")
@@ -26,8 +27,8 @@ sources/2 = SubResource("TileSetAtlasSource_wri1i")
 [node name="CatInfoCard" type="Control"]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 218.0
-offset_bottom = 174.0
+offset_right = 192.0
+offset_bottom = 205.0
 script = ExtResource("1_8u5n0")
 
 [node name="Background" type="ColorRect" parent="."]
@@ -50,10 +51,22 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -57.0
-offset_right = 58.0
-offset_bottom = 27.0
+offset_left = -54.0
+offset_top = 1.0
+offset_right = 61.0
+offset_bottom = 28.0
 grow_horizontal = 2
 text = "My Cat Friends"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="CloseButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 74.0
+offset_top = 172.0
+offset_right = 132.0
+offset_bottom = 197.0
+theme_override_font_sizes/font_size = 12
+text = "close"
+icon = ExtResource("3_d35oh")
+flat = true

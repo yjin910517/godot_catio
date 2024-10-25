@@ -1,51 +1,28 @@
 extends Control
 
-
 var MAX_VISIT = 3
 
-var CAT_LIST = [
-	{
-		"id": "cat_001",
-		"pet": 2,
-		"canned_food": 1, 
-		"dry_food": 1,
-		"status": "idle",
-		"visits": 3
-	},
-	{
-		"id": "cat_002",
-		"pet": -1,
-		"canned_food": 1, 
-		"dry_food": 1,
-		"status": "idle",
-		"visits": 1
-	},
-	{
-		"id": "cat_003",
-		"pet": 2,
-		"canned_food": 1, 
-		"dry_food": 1,
-		"status": "idle",
-		"visits": 0
-	},
-	{
-		"id": "cat_004",
-		"pet": 1,
-		"canned_food": 2, 
-		"dry_food": 1,
-		"status": "idle",
-		"visits": 2
-	}
-]
+@onready var btn = $CloseButton
 
 # Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	# hide()
-	update_tilemap(CAT_LIST)
+func _ready():
+	btn.connect("pressed", Callable(self, "_on_button_pressed"))
+	
+
+# Close info card
+func _on_button_pressed():
+	hide()
+	# To do: emit signal to main for other changes
+	
+
+# Show info card
+func display_card(cat_list_data):
+	update_tilemap(cat_list_data)
+	show()
 
 
 # Update tiles based on cat status
-func update_tilemap(cat_data):
+func update_tilemap(cat_list_data):
 	
 	var atlas_x
 	var atlas_y
@@ -53,9 +30,9 @@ func update_tilemap(cat_data):
 	var tile_y
 	var cat
 	
-	for i in range(len(cat_data)):
+	for i in range(len(cat_list_data)):
 		
-		cat = cat_data[i]
+		cat = cat_list_data[i]
 		tile_y = i
 		tile_x = 0
 		

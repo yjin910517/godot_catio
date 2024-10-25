@@ -77,10 +77,13 @@ var GIFT_LIST = {
 # define global varaibles
 var MAX_VISIT = 1 # for testing
 
-var CAT_SPAWN_LOCATION = Vector2(200, 250)
+var INITIAL_CAMERA_POS = Vector2(0, -540)
+
+var CAT_SPAWN_LOCATION = Vector2(200, 300)
 var GIFT_SPAWN_LOCATION = Vector2(200, 350)
 var GREETING_MENU_LOCATION= Vector2(90, 470)
 var GIFT_INFO_CARD_LOCATION = Vector2(80,80)
+var CAT_INFO_CARD_LOCATION = Vector2(80,80)
 
 var ScoreIcon = load("res://Arts/reaction_like.png")
 
@@ -88,13 +91,17 @@ var cat_wait_time = 2
 var score = 0
 
 # node reference
+@onready var backyard = $Backyard
+@onready var game_camera = $GameCamera
 @onready var greeting_menu = $GreetingMenu
-@onready var cat_counter = $CatCounter
+@onready var cat_counter = $CatCounterNode
 @onready var cat_timer = $CatTimer
 @onready var bgm_player = $BGM
 @onready var gift_spawn = $GiftSpawn
 @onready var gift_info_card = $GiftInfoCard
 @onready var gift_shelf = $GiftShelf
+@onready var notebook_icon = $Notebook
+@onready var cat_info_card = $CatInfoCard
 
 
 # On node ready
@@ -125,6 +132,32 @@ func _ready():
 	gift_info_card.z_index = 2
 	gift_info_card.connect("gift_info_closed", Callable(self, "_on_gift_info_closed"))
 
+	# initiate cat info card
+	cat_info_card.hide()
+	cat_info_card.position = CAT_INFO_CARD_LOCATION
+	cat_info_card.z_index = 2
+
+	# initiate camera
+	# trigger game start when camera moved to main scene
+	game_camera.connect("camera_done", Callable(self, "play"))
+	
+	# initiate notebook icon
+	notebook_icon.hide()
+	notebook_icon.connect("notebook_opened", Callable(self, "_on_cat_info_card_opened"))
+	
+	play_intro()
+
+
+func play_intro():
+	
+	game_camera.position = INITIAL_CAMERA_POS
+	backyard.start_sky_animations()
+	await get_tree().create_timer(10).timeout
+	# To do: intro dialogue box
+	game_camera.sky_to_garden()
+	
+
+func play():
 	# start the game
 	cat_timer.start()
 	bgm_player.play()
@@ -160,10 +193,10 @@ func _on_cat_satisfied(cat):
 	# show visual effects toward score display
 	var moving_icon = ParticleScene.instantiate()
 	moving_icon.texture = ScoreIcon
-	moving_icon.position = cat.position + cat_counter.size / 2
+	moving_icon.position = cat.position + cat.size / 2
 	add_child(moving_icon)
 	var tween = create_tween()
-	var destination_pos = cat_counter.position + Vector2(0, cat_counter.size.y / 2)
+	var destination_pos = cat_counter.get_center()
 	tween.tween_property(moving_icon, "position", destination_pos, 0.3)
 	
 	# trigger following actions on tween completion
@@ -178,18 +211,20 @@ func _on_cat_scored(moving_icon, cat):
 	
 	# update score display
 	score += 1
-	cat_counter.text = str(score)
+	cat_counter.set_score(score)
 	
 	# update cat visit count
 	var cat_data = cat.get_cat_data()
-	cat_data["visits"] += 1
+	var current_visit = cat_data["visits"]
+	current_visit += 1
+	cat_data["visits"] = current_visit
 	cat.set_cat_data(cat_data)
 
 	# remove cat from scene
 	cat.fade_out()
 	
 	# check visit count and display gift
-	if cat_data["visits"] == MAX_VISIT:
+	if current_visit == MAX_VISIT:
 		await get_tree().create_timer(1).timeout
 		gift_spawn.set_gift_content(cat_data["gift"])
 		gift_spawn.show()
@@ -225,3 +260,9 @@ func _on_gift_info_closed(gift_data):
 	# Restart cycle
 	gift_info_card.hide()
 	cat_timer.start()
+
+
+# show cat info card
+func _on_cat_info_card_opened():
+	cat_info_card.display_card(CAT_LIST)
+	# To do: add vfx and sound
