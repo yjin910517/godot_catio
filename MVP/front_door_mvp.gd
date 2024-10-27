@@ -83,7 +83,7 @@ var CAT_SPAWN_LOCATION = Vector2(200, 300)
 var GIFT_SPAWN_LOCATION = Vector2(200, 350)
 var GREETING_MENU_LOCATION= Vector2(90, 470)
 var GIFT_INFO_CARD_LOCATION = Vector2(80,80)
-var CAT_INFO_CARD_LOCATION = Vector2(80,80)
+var CAT_INFO_CARD_LOCATION = Vector2(0,0)
 
 var ScoreIcon = load("res://Arts/reaction_like.png")
 
@@ -102,6 +102,7 @@ var score = 0
 @onready var gift_shelf = $GiftShelf
 @onready var notebook_icon = $Notebook
 @onready var cat_info_card = $CatInfoCard
+@onready var dialogue = $DialogueNode
 
 
 # On node ready
@@ -145,15 +146,22 @@ func _ready():
 	notebook_icon.hide()
 	notebook_icon.connect("notebook_opened", Callable(self, "_on_cat_info_card_opened"))
 	
+	# initiate dialogue box 
+	dialogue.hide()
+	
 	play_intro()
+	# play()
 
 
 func play_intro():
 	
 	game_camera.position = INITIAL_CAMERA_POS
 	backyard.start_sky_animations()
-	await get_tree().create_timer(10).timeout
-	# To do: intro dialogue box
+	await get_tree().create_timer(6).timeout
+	dialogue.show()
+	await dialogue.run_intro_dialogue()
+	
+	# camera movement will trigger game run
 	game_camera.sky_to_garden()
 	
 
@@ -163,6 +171,7 @@ func play():
 	bgm_player.play()
 	greeting_menu.show()
 	cat_counter.show()
+	notebook_icon.show()
 
 
 # Trigger cat creation by timeout

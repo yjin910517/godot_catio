@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://dsc46egiqa03o"]
+[gd_scene load_steps=28 format=3 uid="uid://dsc46egiqa03o"]
 
 [ext_resource type="Script" path="res://MVP/front_door_mvp.gd" id="1_sfnq6"]
 [ext_resource type="Texture2D" uid="uid://bqifph3kqcs70" path="res://Arts/backyard_002.png" id="2_b0lua"]
@@ -14,6 +14,8 @@
 [ext_resource type="Texture2D" uid="uid://v08lka1446j2" path="res://Arts/cloud_2.png" id="6_64noe"]
 [ext_resource type="PackedScene" uid="uid://djwbo1fo54lte" path="res://MVP/GiftInfoCard.tscn" id="7_2dtwf"]
 [ext_resource type="Script" path="res://MVP/gift_shelf.gd" id="8_n7jti"]
+[ext_resource type="Script" path="res://MVP/dialogue_node.gd" id="9_mju48"]
+[ext_resource type="FontFile" uid="uid://c0ohnoq1sjmph" path="res://Fonts/Home Creative.otf" id="10_ow3am"]
 [ext_resource type="Script" path="res://MVP/notebook.gd" id="13_p3yeh"]
 [ext_resource type="Texture2D" uid="uid://bx3w24ji6tx0m" path="res://Arts/notebook_icon.png" id="14_1u4gr"]
 [ext_resource type="Script" path="res://MVP/cat_counter_node.gd" id="14_igt2n"]
@@ -164,6 +166,27 @@ libraries = {
 anchor_mode = 0
 script = ExtResource("3_55e82")
 
+[node name="DialogueNode" type="Node2D" parent="."]
+position = Vector2(12, -100)
+script = ExtResource("9_mju48")
+metadata/_edit_group_ = true
+
+[node name="ColorRect" type="ColorRect" parent="DialogueNode"]
+offset_right = 456.0
+offset_bottom = 84.0
+color = Color(0.336608, 0.336608, 0.336608, 0.556863)
+
+[node name="Dialogue" type="RichTextLabel" parent="DialogueNode"]
+offset_left = 13.0
+offset_top = 4.0
+offset_right = 445.0
+offset_bottom = 78.0
+theme_override_fonts/normal_font = ExtResource("10_ow3am")
+theme_override_font_sizes/normal_font_size = 32
+text = "> What a beautiful day!"
+
+[node name="IntroSound" type="AudioStreamPlayer2D" parent="DialogueNode"]
+
 [node name="CatTimer" type="Timer" parent="."]
 
 [node name="BGM" type="AudioStreamPlayer2D" parent="."]
@@ -218,17 +241,18 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = -43.0
+offset_right = 1.0
+offset_bottom = 33.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.756863, 0.345098, 0.701961, 0.576471)
+color = Color(0.345098, 0.345098, 0.345098, 0.690196)
 
 [node name="NotebookIcon" type="TextureRect" parent="Notebook"]
 layout_mode = 0
 offset_left = 6.0
 offset_top = 4.0
-offset_right = 46.0
-offset_bottom = 44.0
+offset_right = 80.0
+offset_bottom = 74.0
 texture = ExtResource("14_1u4gr")
 
 [node name="GiftSpawn" parent="." instance=ExtResource("6_4vjrl")]
@@ -258,5 +282,5 @@ script = ExtResource("8_n7jti")
 [node name="CatInfoCard" parent="." instance=ExtResource("18_pqjuk")]
 offset_left = -144.0
 offset_top = 266.0
-offset_right = 48.0
-offset_bottom = 471.0
+offset_right = 336.0
+offset_bottom = 806.0
