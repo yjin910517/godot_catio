@@ -15,9 +15,9 @@ var GREETING_ITEMS = [
 var CAT_LIST = [
 	{
 		"id": "cat_001",
-		"pet": 2,
-		"canned_food": 1, 
-		"dry_food": 1,
+		"pet": 3,
+		"canned_food": 3, 
+		"dry_food": 3,
 		"status": "idle",
 		"gift": "feather",
 		"visits": 0
@@ -25,17 +25,17 @@ var CAT_LIST = [
 	{
 		"id": "cat_002",
 		"pet": -1,
-		"canned_food": 1, 
-		"dry_food": 1,
+		"canned_food": 3, 
+		"dry_food": 2,
 		"status": "idle",
-		"gift": "mouse",
+		"gift": "flower",
 		"visits": 0
 	},
 	{
 		"id": "cat_003",
 		"pet": 2,
-		"canned_food": 1, 
-		"dry_food": 1,
+		"canned_food": 3, 
+		"dry_food": 3,
 		"status": "idle",
 		"gift": "leaf",
 		"visits": 0
@@ -44,7 +44,7 @@ var CAT_LIST = [
 		"id": "cat_004",
 		"pet": 1,
 		"canned_food": 2, 
-		"dry_food": 1,
+		"dry_food": 3,
 		"status": "idle",
 		"gift": "shell",
 		"visits": 0
@@ -55,40 +55,43 @@ var GIFT_LIST = {
 	"feather": {
 		"name": "Feather",
 		"icon_file": load("res://Arts/gift_icon_feather.png"),
-		"desc": "Exotic colors. how beautiful"
+		"desc": "Exotic colors. How special! I hope the bird is okay, though..."
 	},
-	"mouse": {
-		"name": "Mouse",
-		"icon_file": load("res://Arts/cat_toy_002_mouse3.png"),
-		"desc": "A white rat. still alive"
+	"flower": {
+		"name": "Flower",
+		"icon_file": load("res://Arts/gift_icon_flower.png"),
+		"desc": "Vibrant yellow petals. The color lights up my day!"
 	},
 	"shell": {
 		"name": "Shell",
 		"icon_file": load("res://Arts/gift_icon_shell.png"),
-		"desc": "the treasure from the sea"
+		"desc": "The treasure from the sea. Long journey to my backyard. What an adventurer."
 	},
 	"leaf": {
 		"name": "Leaf",
 		"icon_file": load("res://Arts/gift_icon_leaf.png"),
-		"desc": "beautiful autumn color"
+		"desc": "Melancholy autumn color. Delicate. Isn't all beautiful things?"
 	}
 }
 
 # define global varaibles
-var MAX_VISIT = 1 # for testing
+var MAX_VISIT = 3
+var NUM_TOTAL_GIFT = 4
 
 var INITIAL_CAMERA_POS = Vector2(0, -540)
 
 var CAT_SPAWN_LOCATION = Vector2(200, 300)
 var GIFT_SPAWN_LOCATION = Vector2(200, 350)
 var GREETING_MENU_LOCATION= Vector2(90, 470)
-var GIFT_INFO_CARD_LOCATION = Vector2(80,80)
-var CAT_INFO_CARD_LOCATION = Vector2(0,0)
+var GIFT_INFO_CARD_LOCATION = Vector2(0, 0)
+var CAT_INFO_CARD_LOCATION = Vector2(0, 0)
+var FINAL_SCENE_LOCATION = Vector2(0, 0)
 
 var ScoreIcon = load("res://Arts/reaction_like.png")
 
 var cat_wait_time = 2
 var score = 0
+var num_gift_opened = 0
 
 # node reference
 @onready var backyard = $Backyard
@@ -103,6 +106,7 @@ var score = 0
 @onready var notebook_icon = $Notebook
 @onready var cat_info_card = $CatInfoCard
 @onready var dialogue = $DialogueNode
+@onready var final_scene = $FamilyPhoto
 
 
 # On node ready
@@ -149,6 +153,10 @@ func _ready():
 	# initiate dialogue box 
 	dialogue.hide()
 	
+	# initial final scene
+	final_scene.position = FINAL_SCENE_LOCATION
+	final_scene.hide()
+	
 	play_intro()
 	# play()
 
@@ -177,7 +185,18 @@ func play():
 # Trigger cat creation by timeout
 func _on_cat_timer_timeout():
 	
-	create_cat(CAT_LIST.pick_random())
+	var draw_list = []
+	for i in range(len(CAT_LIST)):
+		var visits = CAT_LIST[i]["visits"]
+		# give more chance to cat with least visits
+		if visits < MAX_VISIT:
+			for j in range(MAX_VISIT - visits):
+				draw_list.append(i)
+				
+	# Pick a random cat to generate
+	var cat_idx = draw_list.pick_random()
+	print(draw_list)
+	create_cat(CAT_LIST[cat_idx])
 		
 		
 # Add new cats to scene
@@ -214,6 +233,9 @@ func _on_cat_satisfied(cat):
 
 func _on_cat_scored(moving_icon, cat):
 	
+	# highlight notebook
+	notebook_icon.play_anime()
+	
 	# clean up visual fx
 	remove_child(moving_icon)
 	moving_icon.queue_free()
@@ -247,8 +269,6 @@ func _on_cat_scored(moving_icon, cat):
 # show gift info card	
 func _on_gift_opened(gift):
 	
-	print("You just acquired gift: ", gift)
-	
 	# Hide gift box icon
 	gift_spawn.set_gift_content(null)
 	gift_spawn.hide()
@@ -256,19 +276,30 @@ func _on_gift_opened(gift):
 	# Show gift detail info
 	gift_info_card.set_display_data(GIFT_LIST[gift])
 	gift_info_card.show()
+	
+	# Update gift count
+	num_gift_opened += 1
 
 
 # add gift display to background
 func _on_gift_info_closed(gift_data):
+	
+	# Hide gift info card
+	gift_info_card.hide()
 	
 	# Display gift in background
 	gift_shelf.display_item(gift_data)
 	
 	# To do: add vfx to higlight new display
 	
-	# Restart cycle
-	gift_info_card.hide()
-	cat_timer.start()
+	# Check game finish condiiton
+	if num_gift_opened == NUM_TOTAL_GIFT:
+		await get_tree().create_timer(2).timeout
+		final_scene.show_final_scene(score)
+		# To do: add sound fx and visual transition
+		
+	else:
+		cat_timer.start()
 
 
 # show cat info card

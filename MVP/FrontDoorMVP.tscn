@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://dsc46egiqa03o"]
+[gd_scene load_steps=32 format=3 uid="uid://dsc46egiqa03o"]
 
 [ext_resource type="Script" path="res://MVP/front_door_mvp.gd" id="1_sfnq6"]
 [ext_resource type="Texture2D" uid="uid://bqifph3kqcs70" path="res://Arts/backyard_002.png" id="2_b0lua"]
@@ -15,11 +15,12 @@
 [ext_resource type="PackedScene" uid="uid://djwbo1fo54lte" path="res://MVP/GiftInfoCard.tscn" id="7_2dtwf"]
 [ext_resource type="Script" path="res://MVP/gift_shelf.gd" id="8_n7jti"]
 [ext_resource type="Script" path="res://MVP/dialogue_node.gd" id="9_mju48"]
-[ext_resource type="FontFile" uid="uid://c0ohnoq1sjmph" path="res://Fonts/Home Creative.otf" id="10_ow3am"]
+[ext_resource type="FontFile" uid="uid://dov563hjvgd7x" path="res://Fonts/Horse Riding.otf" id="10_u8t1o"]
 [ext_resource type="Script" path="res://MVP/notebook.gd" id="13_p3yeh"]
 [ext_resource type="Texture2D" uid="uid://bx3w24ji6tx0m" path="res://Arts/notebook_icon.png" id="14_1u4gr"]
 [ext_resource type="Script" path="res://MVP/cat_counter_node.gd" id="14_igt2n"]
 [ext_resource type="PackedScene" uid="uid://c1r5gp4tan27l" path="res://MVP/CatInfoCard.tscn" id="18_pqjuk"]
+[ext_resource type="PackedScene" uid="uid://dwi432qbwpev6" path="res://MVP/FamilyPhoto.tscn" id="21_df3vs"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_aotlw"]
 animations = [{
@@ -75,7 +76,7 @@ _data = {
 
 [sub_resource type="Animation" id="Animation_m0quv"]
 resource_name = "Cloud movement 2"
-length = 9.0
+length = 10.0
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -84,10 +85,10 @@ tracks/0/path = NodePath("Cloud2:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 9),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 2, 10),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector2(-120, 340), Vector2(555, 340)]
+"values": [Vector2(-120, 340), Vector2(-120, 340), Vector2(555, 340)]
 }
 
 [sub_resource type="Animation" id="Animation_5evpx"]
@@ -109,6 +110,44 @@ tracks/0/keys = {
 _data = {
 "Cloud movement 2": SubResource("Animation_m0quv"),
 "RESET": SubResource("Animation_5evpx")
+}
+
+[sub_resource type="Animation" id="Animation_ipiwc"]
+resource_name = "shake"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("NotebookIcon:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.233333, 0.466667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [-0.174533, 0.174533, -0.174533]
+}
+
+[sub_resource type="Animation" id="Animation_ee6gy"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("NotebookIcon:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_whqtc"]
+_data = {
+"RESET": SubResource("Animation_ee6gy"),
+"shake": SubResource("Animation_ipiwc")
 }
 
 [node name="FrontDoorMVP" type="Control"]
@@ -181,8 +220,8 @@ offset_left = 13.0
 offset_top = 4.0
 offset_right = 445.0
 offset_bottom = 78.0
-theme_override_fonts/normal_font = ExtResource("10_ow3am")
-theme_override_font_sizes/normal_font_size = 32
+theme_override_fonts/normal_font = ExtResource("10_u8t1o")
+theme_override_font_sizes/normal_font_size = 54
 text = "> What a beautiful day!"
 
 [node name="IntroSound" type="AudioStreamPlayer2D" parent="DialogueNode"]
@@ -233,7 +272,7 @@ anchors_preset = 0
 offset_left = 367.0
 offset_top = 110.0
 offset_right = 464.0
-offset_bottom = 157.0
+offset_bottom = 202.0
 script = ExtResource("13_p3yeh")
 
 [node name="NotebookUIBg" type="ColorRect" parent="Notebook"]
@@ -241,19 +280,23 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 1.0
-offset_bottom = 33.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.345098, 0.345098, 0.345098, 0.690196)
 
 [node name="NotebookIcon" type="TextureRect" parent="Notebook"]
 layout_mode = 0
-offset_left = 6.0
-offset_top = 4.0
-offset_right = 80.0
-offset_bottom = 74.0
+offset_left = 10.0
+offset_top = 11.0
+offset_right = 84.0
+offset_bottom = 81.0
+pivot_offset = Vector2(37, 35)
 texture = ExtResource("14_1u4gr")
+
+[node name="IconAnime" type="AnimationPlayer" parent="Notebook"]
+libraries = {
+"": SubResource("AnimationLibrary_whqtc")
+}
 
 [node name="GiftSpawn" parent="." instance=ExtResource("6_4vjrl")]
 
@@ -264,10 +307,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 267.0
-offset_top = 135.0
-offset_right = 587.0
-offset_bottom = 508.0
+offset_left = 328.0
+offset_top = 107.0
+offset_right = 808.0
+offset_bottom = 647.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -280,7 +323,10 @@ offset_bottom = 170.0
 script = ExtResource("8_n7jti")
 
 [node name="CatInfoCard" parent="." instance=ExtResource("18_pqjuk")]
-offset_left = -144.0
-offset_top = 266.0
-offset_right = 336.0
-offset_bottom = 806.0
+offset_left = -232.0
+offset_top = 377.0
+offset_right = 248.0
+offset_bottom = 917.0
+
+[node name="FamilyPhoto" parent="." instance=ExtResource("21_df3vs")]
+position = Vector2(481, -22)

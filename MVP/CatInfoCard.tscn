@@ -1,9 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://c1r5gp4tan27l"]
+[gd_scene load_steps=7 format=3 uid="uid://c1r5gp4tan27l"]
 
 [ext_resource type="Script" path="res://MVP/cat_info_card.gd" id="1_8u5n0"]
 [ext_resource type="Texture2D" uid="uid://bm2hx5l1u2xyg" path="res://Arts/_cat_info_tileset.png" id="1_axlpj"]
 [ext_resource type="Texture2D" uid="uid://cxrsb1i8j807p" path="res://Arts/HUD_background_1.png" id="2_15tu8"]
-[ext_resource type="Texture2D" uid="uid://cmygpmpmgth1y" path="res://Arts/ui_icon_quit.png" id="3_d35oh"]
 [ext_resource type="FontFile" uid="uid://dov563hjvgd7x" path="res://Fonts/Horse Riding.otf" id="4_h0ot0"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_wri1i"]
@@ -79,7 +78,7 @@ offset_left = 183.0
 offset_top = 413.0
 offset_right = 289.0
 offset_bottom = 466.0
-theme_override_font_sizes/font_size = 32
+theme_override_fonts/font = ExtResource("4_h0ot0")
+theme_override_font_sizes/font_size = 48
 text = "close"
-icon = ExtResource("3_d35oh")
 flat = true

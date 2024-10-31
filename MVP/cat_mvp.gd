@@ -39,6 +39,7 @@ func fade_in():
 
 func fade_out():
 	
+	reaction_enabled = false
 	var tween = create_tween()
 	cat_shader.set_shader_parameter("fade_amount", 1.0)
 	tween.tween_property(cat_shader, "shader_parameter/fade_amount", 0.0, 0.5)
@@ -64,6 +65,8 @@ func set_cat_data(data):
 
 # specify behavior when being dropped on
 func _can_drop_data(position, data):
+	if reaction_enabled == false:
+		return reaction_enabled
 	return data.has("greet_item")
 
 
@@ -100,7 +103,7 @@ func show_reaction(menu_item):
 	# display reaction and temporarily disable click signals on cat
 	reaction_enabled = false
 	$Bubble.show()
-	await get_tree().create_timer(1).timeout
+	await get_tree().create_timer(0.8).timeout
 	$Bubble.hide()
 	reaction_enabled = true
 	

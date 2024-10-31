@@ -1,0 +1,198 @@
+[gd_scene load_steps=21 format=3 uid="uid://dwi432qbwpev6"]
+
+[ext_resource type="Script" path="res://MVP/family_photo.gd" id="1_fsixq"]
+[ext_resource type="Shader" path="res://MVP/CatMVP.gdshader" id="1_wh1mm"]
+[ext_resource type="Texture2D" uid="uid://b7atf4sacvw2d" path="res://Arts/cat_001_idel1.png" id="2_6xv2s"]
+[ext_resource type="Texture2D" uid="uid://b4rjbwrsum1ac" path="res://Arts/cat_001_idel2.png" id="3_2ano3"]
+[ext_resource type="FontFile" uid="uid://c0ohnoq1sjmph" path="res://Fonts/Home Creative.otf" id="3_7vlag"]
+[ext_resource type="Texture2D" uid="uid://f3j4lyawwcd7" path="res://Arts/like_score_icon.png" id="3_erv3g"]
+[ext_resource type="Texture2D" uid="uid://dmv3u3hd6wn42" path="res://Arts/cat_001_rest1.png" id="4_xg36q"]
+[ext_resource type="Texture2D" uid="uid://barxjf811f3ft" path="res://Arts/cat_001_rest2.png" id="5_6reh5"]
+[ext_resource type="Texture2D" uid="uid://0r5wjgmrebfh" path="res://Arts/cat_002_idle1.png" id="6_jb46w"]
+[ext_resource type="Texture2D" uid="uid://cdwrhi35u0lvn" path="res://Arts/cat_002_idle2.png" id="7_kl6h1"]
+[ext_resource type="Texture2D" uid="uid://clhj1opgu0db6" path="res://Arts/cat_003_idle1.png" id="8_25jsg"]
+[ext_resource type="Texture2D" uid="uid://88itw7ipdq" path="res://Arts/cat_003_idle2.png" id="9_vcylq"]
+[ext_resource type="Texture2D" uid="uid://bwpwsacchmqut" path="res://Arts/cat_004_idle1.png" id="10_a6x6p"]
+[ext_resource type="Texture2D" uid="uid://behi06rju3brs" path="res://Arts/cat_004_idle2.png" id="11_sx07t"]
+[ext_resource type="Texture2D" uid="uid://ba3mulxqdx2a3" path="res://Arts/paw_print_1.png" id="14_ntxm0"]
+[ext_resource type="Texture2D" uid="uid://tbse1s4myead" path="res://Arts/paw_print_3.png" id="15_ph3u3"]
+[ext_resource type="Texture2D" uid="uid://q8gu0xv1ut7b" path="res://Arts/paw_print_4.png" id="16_hgaop"]
+[ext_resource type="Texture2D" uid="uid://v4cirs3qj4fh" path="res://Arts/paw_print_2.png" id="17_lphew"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yhi15"]
+shader = ExtResource("1_wh1mm")
+shader_parameter/fade_amount = 1.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_q7xxq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_6xv2s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_2ano3")
+}],
+"loop": true,
+"name": &"cat_001_idle",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_xg36q")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_6reh5")
+}],
+"loop": true,
+"name": &"cat_001_rest",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_jb46w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_kl6h1")
+}],
+"loop": true,
+"name": &"cat_002_idle",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_25jsg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_vcylq")
+}],
+"loop": true,
+"name": &"cat_003_idle",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_a6x6p")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_sx07t")
+}],
+"loop": true,
+"name": &"cat_004_idle",
+"speed": 2.0
+}]
+
+[node name="FamilyPhoto" type="Node2D"]
+script = ExtResource("1_fsixq")
+
+[node name="Background" type="ColorRect" parent="."]
+offset_right = 480.0
+offset_bottom = 540.0
+color = Color(0.325441, 0.325441, 0.325441, 1)
+
+[node name="PhotoFrame" type="ColorRect" parent="."]
+offset_top = 31.0
+offset_right = 480.0
+offset_bottom = 504.0
+color = Color(0.913725, 0.929412, 0.788235, 1)
+
+[node name="Headline" type="RichTextLabel" parent="."]
+offset_left = 33.0
+offset_top = 85.0
+offset_right = 323.0
+offset_bottom = 184.0
+theme_override_colors/default_color = Color(0.831373, 0.639216, 0.45098, 1)
+theme_override_fonts/normal_font = ExtResource("3_7vlag")
+theme_override_font_sizes/normal_font_size = 48
+text = "Thank you for 
+taking care of us! 
+"
+
+[node name="CatCounter" type="Label" parent="."]
+offset_left = 362.0
+offset_top = 103.0
+offset_right = 408.0
+offset_bottom = 150.0
+theme_override_colors/font_color = Color(0.831373, 0.639216, 0.45098, 1)
+theme_override_font_sizes/font_size = 32
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CounterIcon" type="TextureRect" parent="CatCounter"]
+layout_mode = 0
+offset_left = -44.0
+offset_top = 2.0
+offset_right = 5.0
+offset_bottom = 50.0
+texture = ExtResource("3_erv3g")
+stretch_mode = 5
+
+[node name="John" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_yhi15")
+position = Vector2(404, 253)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_q7xxq")
+animation = &"cat_004_idle"
+
+[node name="Bob" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_yhi15")
+position = Vector2(300, 280)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_q7xxq")
+animation = &"cat_003_idle"
+
+[node name="Jessie" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_yhi15")
+position = Vector2(192, 246)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_q7xxq")
+animation = &"cat_001_idle"
+
+[node name="Tyler" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_yhi15")
+position = Vector2(79, 267)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_q7xxq")
+animation = &"cat_002_idle"
+
+[node name="Message" type="RichTextLabel" parent="."]
+offset_left = 45.0
+offset_top = 354.0
+offset_right = 453.0
+offset_bottom = 404.0
+theme_override_colors/default_color = Color(0.831373, 0.639216, 0.45098, 1)
+theme_override_fonts/normal_font = ExtResource("3_7vlag")
+theme_override_font_sizes/normal_font_size = 36
+text = "Support your local animal shelters!"
+
+[node name="Paw1" type="TextureRect" parent="."]
+offset_left = 286.0
+offset_top = 405.0
+offset_right = 338.308
+offset_bottom = 445.0
+texture = ExtResource("14_ntxm0")
+expand_mode = 3
+
+[node name="Paw2" type="TextureRect" parent="."]
+offset_left = 388.0
+offset_top = 431.0
+offset_right = 440.308
+offset_bottom = 471.0
+texture = ExtResource("15_ph3u3")
+expand_mode = 3
+
+[node name="Paw3" type="TextureRect" parent="."]
+offset_left = 178.0
+offset_top = 419.0
+offset_right = 230.308
+offset_bottom = 459.0
+texture = ExtResource("16_hgaop")
+expand_mode = 3
+
+[node name="Paw4" type="TextureRect" parent="."]
+offset_left = 63.0
+offset_top = 409.0
+offset_right = 115.308
+offset_bottom = 449.0
+texture = ExtResource("17_lphew")
+expand_mode = 3

@@ -4,8 +4,8 @@ extends Control
 var displayed_gift_data
 
 var frame_list = [
-	load("res://Arts/gift_frame_1.png"),
-	load("res://Arts/gift_frame_2.png"),
+	load("res://Arts/gift_frame_5.png"),
+	load("res://Arts/gift_frame_6.png"),
 	load("res://Arts/gift_frame_3.png"),
 	load("res://Arts/gift_frame_4.png")
 ]
