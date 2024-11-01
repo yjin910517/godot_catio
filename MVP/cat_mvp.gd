@@ -72,7 +72,6 @@ func _can_drop_data(position, data):
 
 func _drop_data(position, data):
 	var menu_item = data["greet_item"]
-	print("Cat received ", menu_item.name)
 	await show_reaction(menu_item)
 
 

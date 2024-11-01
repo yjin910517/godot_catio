@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://dwi432qbwpev6"]
+[gd_scene load_steps=19 format=3 uid="uid://dwi432qbwpev6"]
 
 [ext_resource type="Script" path="res://MVP/family_photo.gd" id="1_fsixq"]
 [ext_resource type="Shader" path="res://MVP/CatMVP.gdshader" id="1_wh1mm"]
@@ -6,8 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://b4rjbwrsum1ac" path="res://Arts/cat_001_idel2.png" id="3_2ano3"]
 [ext_resource type="FontFile" uid="uid://c0ohnoq1sjmph" path="res://Fonts/Home Creative.otf" id="3_7vlag"]
 [ext_resource type="Texture2D" uid="uid://f3j4lyawwcd7" path="res://Arts/like_score_icon.png" id="3_erv3g"]
-[ext_resource type="Texture2D" uid="uid://dmv3u3hd6wn42" path="res://Arts/cat_001_rest1.png" id="4_xg36q"]
-[ext_resource type="Texture2D" uid="uid://barxjf811f3ft" path="res://Arts/cat_001_rest2.png" id="5_6reh5"]
 [ext_resource type="Texture2D" uid="uid://0r5wjgmrebfh" path="res://Arts/cat_002_idle1.png" id="6_jb46w"]
 [ext_resource type="Texture2D" uid="uid://cdwrhi35u0lvn" path="res://Arts/cat_002_idle2.png" id="7_kl6h1"]
 [ext_resource type="Texture2D" uid="uid://clhj1opgu0db6" path="res://Arts/cat_003_idle1.png" id="8_25jsg"]
@@ -35,17 +33,6 @@ animations = [{
 "loop": true,
 "name": &"cat_001_idle",
 "speed": 3.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("4_xg36q")
-}, {
-"duration": 1.0,
-"texture": ExtResource("5_6reh5")
-}],
-"loop": true,
-"name": &"cat_001_rest",
-"speed": 1.0
 }, {
 "frames": [{
 "duration": 1.0,

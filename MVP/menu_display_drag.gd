@@ -42,5 +42,4 @@ func populate_menu():
 # Function to handle item clicks
 func _on_item_clicked(menu_item):
 	selected_item = menu_item
-	print(name, " received selection: ", selected_item.name)
 	

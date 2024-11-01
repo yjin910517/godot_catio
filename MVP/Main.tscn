@@ -1,0 +1,332 @@
+[gd_scene load_steps=32 format=3 uid="uid://c1nid63xjcbd1"]
+
+[ext_resource type="Script" path="res://MVP/main.gd" id="1_7pqau"]
+[ext_resource type="Texture2D" uid="uid://bqifph3kqcs70" path="res://Arts/backyard_002.png" id="2_b0lua"]
+[ext_resource type="PackedScene" uid="uid://bvvj6uvq814a4" path="res://MVP/MenuDisplayDrag.tscn" id="2_bwp5n"]
+[ext_resource type="Script" path="res://MVP/game_camera.gd" id="3_55e82"]
+[ext_resource type="Script" path="res://MVP/backyard.gd" id="3_iy7o4"]
+[ext_resource type="Texture2D" uid="uid://dugfsvdwuxyo3" path="res://Arts/sun1.png" id="3_q0r5m"]
+[ext_resource type="Texture2D" uid="uid://c1ix7ibdyaqcm" path="res://Arts/sun2.png" id="4_756dc"]
+[ext_resource type="Texture2D" uid="uid://f3j4lyawwcd7" path="res://Arts/like_score_icon.png" id="4_ckqvl"]
+[ext_resource type="AudioStream" uid="uid://d1vbvuuq5ilur" path="res://Audios/1-Catio.wav" id="5_7x3wy"]
+[ext_resource type="Texture2D" uid="uid://vgpamr3sqqi4" path="res://Arts/cloud_1.png" id="5_lg2eu"]
+[ext_resource type="PackedScene" uid="uid://b3aqptdbpu7y1" path="res://MVP/GiftSpawn.tscn" id="6_4vjrl"]
+[ext_resource type="Texture2D" uid="uid://v08lka1446j2" path="res://Arts/cloud_2.png" id="6_64noe"]
+[ext_resource type="PackedScene" uid="uid://djwbo1fo54lte" path="res://MVP/GiftInfoCard.tscn" id="7_2dtwf"]
+[ext_resource type="Script" path="res://MVP/gift_shelf.gd" id="8_n7jti"]
+[ext_resource type="Script" path="res://MVP/dialogue_node.gd" id="9_mju48"]
+[ext_resource type="FontFile" uid="uid://dov563hjvgd7x" path="res://Fonts/Horse Riding.otf" id="10_u8t1o"]
+[ext_resource type="Script" path="res://MVP/notebook.gd" id="13_p3yeh"]
+[ext_resource type="Texture2D" uid="uid://bx3w24ji6tx0m" path="res://Arts/notebook_icon.png" id="14_1u4gr"]
+[ext_resource type="Script" path="res://MVP/cat_counter_node.gd" id="14_igt2n"]
+[ext_resource type="PackedScene" uid="uid://c1r5gp4tan27l" path="res://MVP/CatInfoCard.tscn" id="18_pqjuk"]
+[ext_resource type="PackedScene" uid="uid://dwi432qbwpev6" path="res://MVP/FamilyPhoto.tscn" id="21_df3vs"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_aotlw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_q0r5m")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_756dc")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_guqqv"]
+resource_name = "Cloud movement"
+length = 8.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Cloud1:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-100, 220), Vector2(600, 220)]
+}
+
+[sub_resource type="Animation" id="Animation_06qmx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Cloud1:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(381, 326)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qmsdr"]
+_data = {
+"Cloud movement": SubResource("Animation_guqqv"),
+"RESET": SubResource("Animation_06qmx")
+}
+
+[sub_resource type="Animation" id="Animation_m0quv"]
+resource_name = "Cloud movement 2"
+length = 10.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Cloud2:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2, 10),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-120, 340), Vector2(-120, 340), Vector2(555, 340)]
+}
+
+[sub_resource type="Animation" id="Animation_5evpx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Cloud2:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(192, 381)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_uvt0l"]
+_data = {
+"Cloud movement 2": SubResource("Animation_m0quv"),
+"RESET": SubResource("Animation_5evpx")
+}
+
+[sub_resource type="Animation" id="Animation_ee6gy"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("NotebookIcon:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_ipiwc"]
+resource_name = "shake"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("NotebookIcon:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.233333, 0.466667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [-0.174533, 0.174533, -0.174533]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_whqtc"]
+_data = {
+"RESET": SubResource("Animation_ee6gy"),
+"shake": SubResource("Animation_ipiwc")
+}
+
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -480.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7pqau")
+
+[node name="Backyard" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -540.0
+offset_right = 480.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_b0lua")
+expand_mode = 5
+stretch_mode = 5
+script = ExtResource("3_iy7o4")
+
+[node name="Sun" type="AnimatedSprite2D" parent="Backyard"]
+position = Vector2(356, 173)
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_aotlw")
+frame = 1
+frame_progress = 0.868554
+
+[node name="Cloud1" type="Sprite2D" parent="Backyard"]
+position = Vector2(381, 326)
+scale = Vector2(4, 4)
+texture = ExtResource("5_lg2eu")
+
+[node name="CloudPlayer1" type="AnimationPlayer" parent="Backyard"]
+libraries = {
+"": SubResource("AnimationLibrary_qmsdr")
+}
+
+[node name="Cloud2" type="Sprite2D" parent="Backyard"]
+position = Vector2(192, 381)
+scale = Vector2(4, 4)
+texture = ExtResource("6_64noe")
+
+[node name="CloudPlayer2" type="AnimationPlayer" parent="Backyard"]
+libraries = {
+"": SubResource("AnimationLibrary_uvt0l")
+}
+
+[node name="GameCamera" type="Camera2D" parent="."]
+anchor_mode = 0
+script = ExtResource("3_55e82")
+
+[node name="DialogueNode" type="Node2D" parent="."]
+position = Vector2(12, -100)
+script = ExtResource("9_mju48")
+metadata/_edit_group_ = true
+
+[node name="ColorRect" type="ColorRect" parent="DialogueNode"]
+offset_right = 456.0
+offset_bottom = 84.0
+color = Color(0.336608, 0.336608, 0.336608, 0.556863)
+
+[node name="Dialogue" type="RichTextLabel" parent="DialogueNode"]
+offset_left = 13.0
+offset_top = 4.0
+offset_right = 445.0
+offset_bottom = 78.0
+theme_override_fonts/normal_font = ExtResource("10_u8t1o")
+theme_override_font_sizes/normal_font_size = 54
+text = "> What a beautiful day!"
+
+[node name="IntroSound" type="AudioStreamPlayer2D" parent="DialogueNode"]
+
+[node name="CatTimer" type="Timer" parent="."]
+
+[node name="BGM" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_7x3wy")
+
+[node name="CatCounterNode" type="Node2D" parent="."]
+position = Vector2(367, 13)
+script = ExtResource("14_igt2n")
+metadata/_edit_group_ = true
+
+[node name="UIBackground" type="ColorRect" parent="CatCounterNode"]
+offset_top = 7.0
+offset_right = 98.0
+offset_bottom = 87.0
+color = Color(0.345098, 0.345098, 0.345098, 0.690196)
+
+[node name="CatCounter" type="Label" parent="CatCounterNode"]
+offset_left = 50.0
+offset_top = 24.0
+offset_right = 91.0
+offset_bottom = 70.0
+theme_override_font_sizes/font_size = 32
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CounterIcon" type="TextureRect" parent="CatCounterNode/CatCounter"]
+layout_mode = 0
+offset_left = -44.0
+offset_top = 2.0
+offset_right = 5.0
+offset_bottom = 50.0
+texture = ExtResource("4_ckqvl")
+stretch_mode = 5
+
+[node name="GreetingMenu" parent="." instance=ExtResource("2_bwp5n")]
+offset_left = 66.0
+offset_top = 434.0
+offset_right = 426.0
+offset_bottom = 494.0
+
+[node name="Notebook" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 367.0
+offset_top = 110.0
+offset_right = 464.0
+offset_bottom = 202.0
+script = ExtResource("13_p3yeh")
+
+[node name="NotebookUIBg" type="ColorRect" parent="Notebook"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.345098, 0.345098, 0.345098, 0.690196)
+
+[node name="NotebookIcon" type="TextureRect" parent="Notebook"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 11.0
+offset_right = 84.0
+offset_bottom = 81.0
+pivot_offset = Vector2(37, 35)
+texture = ExtResource("14_1u4gr")
+
+[node name="IconAnime" type="AnimationPlayer" parent="Notebook"]
+libraries = {
+"": SubResource("AnimationLibrary_whqtc")
+}
+
+[node name="GiftSpawn" parent="." instance=ExtResource("6_4vjrl")]
+
+[node name="GiftInfoCard" parent="." instance=ExtResource("7_2dtwf")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 328.0
+offset_top = 107.0
+offset_right = 808.0
+offset_bottom = 647.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GiftShelf" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 35.0
+offset_top = 36.0
+offset_right = 236.0
+offset_bottom = 170.0
+script = ExtResource("8_n7jti")
+
+[node name="CatInfoCard" parent="." instance=ExtResource("18_pqjuk")]
+offset_left = -232.0
+offset_top = 377.0
+offset_right = 248.0
+offset_bottom = 917.0
+
+[node name="FamilyPhoto" parent="." instance=ExtResource("21_df3vs")]
+position = Vector2(481, -22)

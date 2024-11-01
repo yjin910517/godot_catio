@@ -1,0 +1,115 @@
+[gd_scene load_steps=15 format=3 uid="uid://cpi4odnjgrisj"]
+
+[ext_resource type="FontFile" uid="uid://c0ohnoq1sjmph" path="res://Fonts/Home Creative.otf" id="2_7vhdx"]
+[ext_resource type="Shader" path="res://MVP/CatMVP.gdshader" id="4_ebnlp"]
+[ext_resource type="Texture2D" uid="uid://b7atf4sacvw2d" path="res://Arts/cat_001_idel1.png" id="5_dmku0"]
+[ext_resource type="Texture2D" uid="uid://b4rjbwrsum1ac" path="res://Arts/cat_001_idel2.png" id="6_slmi1"]
+[ext_resource type="Texture2D" uid="uid://0r5wjgmrebfh" path="res://Arts/cat_002_idle1.png" id="7_wx5xt"]
+[ext_resource type="Texture2D" uid="uid://cdwrhi35u0lvn" path="res://Arts/cat_002_idle2.png" id="8_10v2u"]
+[ext_resource type="Texture2D" uid="uid://clhj1opgu0db6" path="res://Arts/cat_003_idle1.png" id="9_nq4ti"]
+[ext_resource type="Texture2D" uid="uid://88itw7ipdq" path="res://Arts/cat_003_idle2.png" id="10_y8eoo"]
+[ext_resource type="Texture2D" uid="uid://bwpwsacchmqut" path="res://Arts/cat_004_idle1.png" id="11_igfbf"]
+[ext_resource type="Texture2D" uid="uid://bf1xty0ahtlof" path="res://Arts/gift_icon_flower.png" id="12_aw88s"]
+[ext_resource type="Texture2D" uid="uid://behi06rju3brs" path="res://Arts/cat_004_idle2.png" id="12_i5epv"]
+[ext_resource type="Texture2D" uid="uid://dfdftq30stlyo" path="res://Arts/food_canned3.png" id="13_i6s8x"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yhi15"]
+shader = ExtResource("4_ebnlp")
+shader_parameter/fade_amount = 1.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_q7xxq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_dmku0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_slmi1")
+}],
+"loop": true,
+"name": &"cat_001_idle",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_wx5xt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_10v2u")
+}],
+"loop": true,
+"name": &"cat_002_idle",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_nq4ti")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_y8eoo")
+}],
+"loop": true,
+"name": &"cat_003_idle",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_igfbf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_i5epv")
+}],
+"loop": true,
+"name": &"cat_004_idle",
+"speed": 2.0
+}]
+
+[node name="Screenshot" type="Node2D"]
+
+[node name="PhotoFrame" type="ColorRect" parent="."]
+offset_right = 315.0
+offset_bottom = 250.0
+color = Color(0.913725, 0.929412, 0.788235, 1)
+
+[node name="John" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_yhi15")
+position = Vector2(276, 193)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_q7xxq")
+animation = &"cat_004_idle"
+
+[node name="Gift" type="TextureRect" parent="."]
+offset_left = 243.0
+offset_top = 35.0
+offset_right = 304.0
+offset_bottom = 100.0
+texture = ExtResource("12_aw88s")
+stretch_mode = 5
+
+[node name="Food" type="TextureRect" parent="."]
+offset_left = 19.0
+offset_top = 210.0
+offset_right = 63.0
+offset_bottom = 246.0
+texture = ExtResource("13_i6s8x")
+stretch_mode = 5
+
+[node name="Headline" type="RichTextLabel" parent="."]
+offset_left = 27.0
+offset_top = 29.0
+offset_right = 212.0
+offset_bottom = 128.0
+theme_override_colors/default_color = Color(0.831373, 0.639216, 0.45098, 1)
+theme_override_fonts/normal_font = ExtResource("2_7vhdx")
+theme_override_font_sizes/normal_font_size = 48
+text = "Backyard Cat Friends"
+
+[node name="Credit" type="RichTextLabel" parent="."]
+offset_left = 64.0
+offset_top = 218.0
+offset_right = 162.0
+offset_bottom = 237.0
+theme_override_colors/default_color = Color(0.831373, 0.639216, 0.45098, 1)
+theme_override_fonts/normal_font = ExtResource("2_7vhdx")
+theme_override_font_sizes/normal_font_size = 20
+text = "bY @birdnofoot"
